@@ -19,6 +19,7 @@ public class Board {
     public Board(int xSize, int ySize) {
         this.xSize = xSize;
         this.ySize = ySize;
+
     }
 
     public int getX(){

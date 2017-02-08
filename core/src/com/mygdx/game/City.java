@@ -23,7 +23,8 @@ public class City {
         this.materials = 2;
         this.membership = "WILD";
         this.population = 2;
-        this.money = 2;
+        this.money = 5;
+
 
         generateCity();
     }
