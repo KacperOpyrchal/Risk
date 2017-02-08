@@ -7,4 +7,5 @@ package com.mygdx.game;
 public class addmeTestClass {
     int dupa=0;
     dupa++;
+    dupa --;
 }
