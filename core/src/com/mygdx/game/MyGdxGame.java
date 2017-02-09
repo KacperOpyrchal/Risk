@@ -7,13 +7,18 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.maps.tiled.TiledMap;
 import com.badlogic.gdx.maps.tiled.TiledMapRenderer;
 import com.badlogic.gdx.maps.tiled.TmxMapLoader;
 import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
+import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Skin;
+import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 
 import java.util.Random;
 
@@ -27,6 +32,12 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	OrthographicCamera camera;
 	TiledMapRenderer tiledMapRenderer;
 
+	Stage stage;
+	TextButton button;
+	TextButton.TextButtonStyle textButtonStyle;
+	BitmapFont font;
+	Skin skin;
+	TextureAtlas buttonAtlas;
 
 	public MyGdxGame(){
 		super();
@@ -37,6 +48,8 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 
 	@Override
 	public void create() {
+
+		//initButton();
 
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
@@ -63,14 +76,31 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		camera.update();
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
+		//camera.update();
+		//tiledMapRenderer.setView(camera);
+		//tiledMapRenderer.render();
 
 		camera.translate(1,1);
 
-		RenderBoard.renderGrid(shapeRenderer, 18, 32);
+		//RenderBoard.renderHexagon(shapeRenderer, 200, 500, 150);
+		RenderBoard.renderGrid(shapeRenderer, 9, 16);
 
+	}
+
+	public void initButton(){
+		stage = new Stage();
+		Gdx.input.setInputProcessor(stage);
+		font = new BitmapFont();
+		skin = new Skin();
+		buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/buttons.pack"));
+		skin.addRegions(buttonAtlas);
+		textButtonStyle = new TextButton.TextButtonStyle();
+		textButtonStyle.font = font;
+		textButtonStyle.up = skin.getDrawable("up-button");
+		textButtonStyle.down = skin.getDrawable("down-button");
+		textButtonStyle.checked = skin.getDrawable("checked-button");
+		button = new TextButton("Button1", textButtonStyle);
+		stage.addActor(button);
 	}
 
 	@Override
