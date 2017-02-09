@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by JavaDev on 08.02.2017.
+ * Created by Kacper Opyrchal on 08.02.2017.
  */
 
 public class City {

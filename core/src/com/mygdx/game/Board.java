@@ -8,13 +8,15 @@ import java.util.List;
 import java.util.Random;
 
 /**
- * Created by JavaDev on 04.02.2017.
+ * Created by Kacper Opyrchal on 04.02.2017.
  */
 
 public class Board {
 
     int xSize;
     int ySize;
+
+    List<List<Cell>> cells;
 
     public Board(int xSize, int ySize) {
         this.xSize = xSize;
