@@ -42,6 +42,6 @@ public class City {
     private void generateCity(){
         cells = new ArrayList<Cell>();
 
-        cells.add(new Cell());
+        //cells.add(new Cell());
     }
 }
