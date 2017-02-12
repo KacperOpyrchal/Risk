@@ -61,10 +61,10 @@ public class Board {
                         break;
                 }
 
-                cells[j][i] = new Cell( (jn*3*a)+a, (i*2*a)+a, a, color);
+                cells[j][i] = new Cell( (jn*3*a)+4*a, (i*2*a)+4*a, a, color);
 
-                float x = (jn*3*a)+a;
-                float y = (i*2*a)+a;
+                float x = (jn*3*a)+4*a;
+                float y = (i*2*a)+4*a;
                 j++;
 
                 switch(rand.nextInt(5)){
@@ -86,7 +86,7 @@ public class Board {
                 }
 
                 if(j < xSize){
-                    cells[j][i] = new Cell( x + (3*a)/2, y + (a*(float)Math.sqrt(3))/2, a, color);
+                    cells[j][i] = new Cell( x + (3*a)/2, y + (a* ((float)Math.sqrt(3))/2), a, color);
                 }
 
                 // Dodawanie cell do tablicy board...
