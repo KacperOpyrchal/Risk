@@ -35,11 +35,11 @@ public class Board {
 
         float a = Gdx.graphics.getWidth() / xSize;
 
-        a /= 2;
+        a /= 4;
 
         for(int i = 0; i < ySize; ++i){
-            for(int j = 0, jn = 0; j < xSize / 1.5 - i%2; ++j, ++jn){
-
+            //for(int j = 0, jn = 0; j < xSize / 1.5 - i%2; ++j, ++jn){
+            for(int j = 0, jn = 0; j < xSize; ++j, ++jn){
                 Color color = Color.BLACK;
                 Random rand = new Random();
 
