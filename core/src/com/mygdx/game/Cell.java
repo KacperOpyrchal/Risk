@@ -1,5 +1,20 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.PolygonRegion;
+import com.badlogic.gdx.graphics.g2d.PolygonSprite;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.TextureAtlas;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.g3d.attributes.ColorAttribute;
+import com.badlogic.gdx.math.Polygon;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.BodyDef;
+import com.badlogic.gdx.physics.box2d.FixtureDef;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
+
 import java.util.List;
 
 /**
@@ -11,6 +26,9 @@ public class Cell {
 
     int x;
     int y;
+    Texture textureHexagon;
+    PolygonSprite hexagon;
+    PolygonSpriteBatch hexagonBatch;
 
     List<Cell> neighbours;
 
@@ -83,4 +101,38 @@ public class Cell {
         if(validate(newNeighbour, width, height))
             neighbours.add(newNeighbour);
     }
+
+    public void setTextureHexagon(Color textureColor){ // kolory typu BLACK, RED...
+        Pixmap pixMap = new Pixmap(1,1, Pixmap.Format.RGBA8888);
+        pixMap.setColor(textureColor);
+        pixMap.fill();
+        textureHexagon = new Texture(pixMap);
+    } // ta funkcja powinna być wywoływana w klasie miasto, aby ustawić dobry kolor...
+    // chodzi o to do jakiego państwa należy
+
+    private void setShape(int size){
+        float[] vertices = new float[]{
+            -size, 0,
+            -size/2, - size,
+            size/2, - size,
+            size, 0,
+            size/2, size,
+            -size/2, size
+        };
+
+        short[] triangles = new short[]{
+            0, 2, 1,
+            0, 3, 2,
+            0, 4, 3,
+            0, 5, 4
+        }; // nie pytajcie czemu to jest... musi być, ale jest do niczego nie potrzebne...
+
+        PolygonRegion polygonRegion = new PolygonRegion(new TextureRegion(textureHexagon), vertices, triangles);
+
+        hexagon = new PolygonSprite(polygonRegion);
+        hexagon.setOrigin(0f, 0f);
+        hexagonBatch = new PolygonSpriteBatch();
+    }
+
+
 }

@@ -55,7 +55,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		shapeRenderer = new ShapeRenderer();
 		menu = new Menu();
 
-		/*
+		///*
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,w,h);
@@ -63,7 +63,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		tiledMap = new TmxMapLoader().load("test.tmx");
 
 		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-		*/
+		//*/
 
 		RenderBoard.init();
 		Gdx.input.setInputProcessor(this);
@@ -84,11 +84,12 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		menu.renderMenu(batch);
 		batch.end();
 
-		//camera.update();
-		//tiledMapRenderer.setView(camera);
-		//tiledMapRenderer.render();
-		//camera.translate(1,1);
-		//RenderBoard.renderHexagon(shapeRenderer, 200, 500, 150);
+		RenderBoard.renderHexagon(shapeRenderer, 200, 500, 150);
+
+		camera.update();
+		tiledMapRenderer.setView(camera);
+		tiledMapRenderer.render();
+		camera.translate(1,1);
 
 
 
@@ -138,7 +139,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		//Random rand = new Random();
-		//camera.translate(-100,-100);
+		camera.translate(-100,-100);
 
 		//menu.setStartActive(!menu.isStartActive());
 
