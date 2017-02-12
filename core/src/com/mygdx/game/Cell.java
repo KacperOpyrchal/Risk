@@ -28,6 +28,8 @@ public class Cell {
 
     float x;
     float y;
+    float realX;
+    float realY;
     float size;
     Texture textureHexagon;
     PolygonSprite hexagon;
@@ -39,8 +41,19 @@ public class Cell {
         this.x = x;
         this.y = y;
         this.size = size;
+        setRealX();
+        setRealY();
         setTextureHexagon(color);
         setShape(size);
+    }
+
+    private void setRealX(){
+        realX = x * 3 * size + size;
+        if(y%2 == 1) realX += 1.5 * size;
+    }
+
+    private void setRealY(){
+        realY = y * size + size;
     }
 
     private boolean validate(Cell neighbour, int width, int height){
@@ -144,8 +157,8 @@ public class Cell {
 
         hexagonBatch.begin();
 
-        hexagon.setX(x);
-        hexagon.setY(y);
+        hexagon.setX(realX);
+        hexagon.setY(realY);
         hexagon.draw(hexagonBatch);
 
         hexagonBatch.end();

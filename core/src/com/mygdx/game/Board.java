@@ -61,11 +61,12 @@ public class Board {
                         break;
                 }
 
-                cells[j][i] = new Cell( (jn*3*a)+a, (i*2*a)+a, a, color);
+                //cells[j][i] = new Cell( (jn*3*a)+a, (i*2*a)+a, a, color);
+                cells[j][i] = new Cell(jn, i, a, color);
 
                 float x = (jn*3*a)+a;
                 float y = (i*2*a)+a;
-                j++;
+                //j++;
 
                 switch(rand.nextInt(5)){
                     case 0:
@@ -85,9 +86,9 @@ public class Board {
                         break;
                 }
 
-                if(j < xSize){
+               /* if(j < xSize){
                     cells[j][i] = new Cell( x + (3*a)/2, y + (a*(float)Math.sqrt(3))/2, a, color);
-                }
+                }*/
 
                 // Dodawanie cell do tablicy board...
                 // funkcja do tworzenia panstw...
