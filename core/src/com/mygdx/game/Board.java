@@ -38,7 +38,7 @@ public class Board {
         a /= 2;
 
         for(int i = 0; i < ySize; ++i){
-            for(int j = 0, jn = 0; j < xSize; ++j, ++jn){
+            for(int j = 0, jn = 0; j < xSize / 1.5 - i%2; ++j, ++jn){
 
                 Color color = Color.BLACK;
                 Random rand = new Random();
@@ -61,44 +61,14 @@ public class Board {
                         break;
                 }
 
-                //cells[j][i] = new Cell( (jn*3*a)+a, (i*2*a)+a, a, color);
-                cells[j][i] = new Cell(jn, i, a, color);
-
-                float x = (jn*3*a)+a;
-                float y = (i*2*a)+a;
-                //j++;
-
-                switch(rand.nextInt(5)){
-                    case 0:
-                        color = Color.GREEN;
-                        break;
-                    case 1:
-                        color = Color.RED;
-                        break;
-                    case 2:
-                        color = Color.BLUE;
-                        break;
-                    case 3:
-                        color = Color.GOLD;
-                        break;
-                    case 4:
-                        color = Color.ORANGE;
-                        break;
-                }
-
-               /* if(j < xSize){
-                    cells[j][i] = new Cell( x + (3*a)/2, y + (a*(float)Math.sqrt(3))/2, a, color);
-                }*/
-
-                // Dodawanie cell do tablicy board...
-                // funkcja do tworzenia panstw...
+                cells[j][i] = new Cell(j, i, a, color);
             }
         }
     }
 
     public void drawBoard(){
         for(int i = 0; i < ySize; ++i){
-            for(int j = 0; j < xSize; ++j){
+            for(int j = 0; j < xSize / 1.5 - i%2; ++j){
 
                 cells[j][i].drawHexagon();
             }
