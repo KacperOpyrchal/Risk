@@ -20,21 +20,27 @@ import java.util.List;
 /**
  * Created by Kacper Opyrchal on 04.02.2017
  * Updated by Marcin Holota on 10.02.2017
+ * Updated by Kacper Opyrchal on 10.02.2017
+ *  1) Draw method has been added
  */
 
 public class Cell {
 
-    int x;
-    int y;
+    float x;
+    float y;
+    float size;
     Texture textureHexagon;
     PolygonSprite hexagon;
     PolygonSpriteBatch hexagonBatch;
 
     List<Cell> neighbours;
 
-    public Cell(int x, int y){
+    public Cell(float x, float y, float size, Color color){
         this.x = x;
         this.y = y;
+        this.size = size;
+        setTextureHexagon(color);
+        setShape(size);
     }
 
     private boolean validate(Cell neighbour, int width, int height){
@@ -47,32 +53,32 @@ public class Cell {
     }
 
     private Cell topNeighbour(){
-        Cell top = new Cell(x, y - 2);
+        Cell top = new Cell(x, y - 2, size, Color.GREEN);
         return top;
     }
 
     private Cell topLeftNeighbour(){
-        Cell topLeft = new Cell(x - y%2, y - 1);
+        Cell topLeft = new Cell(x - y%2, y - 1, size, Color.GREEN);
         return topLeft;
     }
 
     private Cell topRightNeighbour(){
-        Cell topRight = new Cell(x + 1 - y%2, y - 1);
+        Cell topRight = new Cell(x + 1 - y%2, y - 1, size, Color.GREEN);
         return topRight;
     }
 
     private Cell bottomNeighbour(){
-        Cell bottom = new Cell(x, y + 2);
+        Cell bottom = new Cell(x, y + 2, size, Color.GREEN);
         return bottom;
     }
 
     private Cell bottomLeftNeighbour(){
-        Cell bottomLeft = new Cell(x - y%2, y + 1);
+        Cell bottomLeft = new Cell(x - y%2, y + 1, size, Color.GREEN);
         return bottomLeft;
     }
 
     private Cell bottomRightNeighbour(){
-        Cell bottomRight = new Cell(x + 1 - y%2, y + 1);
+        Cell bottomRight = new Cell(x + 1 - y%2, y + 1, size, Color.GREEN);
         return bottomRight;
     }
 
@@ -110,7 +116,7 @@ public class Cell {
     } // ta funkcja powinna być wywoływana w klasie miasto, aby ustawić dobry kolor...
     // chodzi o to do jakiego państwa należy
 
-    private void setShape(int size){
+    private void setShape(float size){
         float[] vertices = new float[]{
             -size, 0,
             -size/2, - size,
@@ -132,6 +138,18 @@ public class Cell {
         hexagon = new PolygonSprite(polygonRegion);
         hexagon.setOrigin(0f, 0f);
         hexagonBatch = new PolygonSpriteBatch();
+    }
+
+    public void drawHexagon(){
+
+        hexagonBatch.begin();
+
+        hexagon.setX(x);
+        hexagon.setY(y);
+        hexagon.draw(hexagonBatch);
+
+        hexagonBatch.end();
+
     }
 
 

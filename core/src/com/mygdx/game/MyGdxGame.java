@@ -3,6 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
 import com.badlogic.gdx.graphics.Texture;
@@ -40,11 +41,17 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	Skin skin;
 	TextureAtlas buttonAtlas;
 
+	Cell testCell;
+
 
 	Menu menu;
 
 	@Override
 	public void create() {
+
+
+		testCell = new Cell(200, 200, 50, Color.GREEN);
+		//testCell.setTextureHexagon(Color.GREEN);
 
 		//initButton();
 
@@ -76,7 +83,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		if(menu.isStartActive()) {
+		/*if(menu.isStartActive()) {
 			RenderBoard.renderGrid(shapeRenderer, 9, 16);
 		}
 
@@ -89,7 +96,9 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		camera.update();
 		tiledMapRenderer.setView(camera);
 		tiledMapRenderer.render();
-		camera.translate(1,1);
+		camera.translate(1,1);*/
+
+		testCell.drawHexagon();
 
 
 
