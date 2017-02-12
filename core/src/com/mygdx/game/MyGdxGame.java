@@ -42,15 +42,16 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	TextureAtlas buttonAtlas;
 
 	Cell testCell;
-
+	Board board;
 
 	Menu menu;
 
 	@Override
 	public void create() {
 
+		board = new Board(10, 10);
 
-		testCell = new Cell(200, 200, 50, Color.GREEN);
+		testCell = new Cell(100, 100, 100, Color.GREEN);
 		//testCell.setTextureHexagon(Color.GREEN);
 
 		//initButton();
@@ -83,6 +84,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+		board.drawBoard();
 		/*if(menu.isStartActive()) {
 			RenderBoard.renderGrid(shapeRenderer, 9, 16);
 		}
@@ -98,7 +100,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		tiledMapRenderer.render();
 		camera.translate(1,1);*/
 
-		testCell.drawHexagon();
+		//testCell.drawHexagon();
 
 
 
