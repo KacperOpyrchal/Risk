@@ -49,11 +49,11 @@ public class Cell {
 
     private void setRealX(){
         realX = x * 3 * size + size;
-        if(y%2 == 1) realX += 1.5 * size;
+        if(y%2 == 1) realX += (1.5 * size);
     }
 
     private void setRealY(){
-        realY = y * size + size;
+        realY = (float) ((y+1) * Math.sqrt(3)) * size / 2;
     }
 
     private boolean validate(Cell neighbour, int width, int height){
@@ -130,13 +130,14 @@ public class Cell {
     // chodzi o to do jakiego państwa należy
 
     private void setShape(float size){
+        float sqrt3 = (float)Math.sqrt(3)/2;
         float[] vertices = new float[]{
             -size, 0,
-            -size/2, - size,
-            size/2, - size,
+            -size/2, - size * sqrt3,
+            size/2, - size * sqrt3,
             size, 0,
-            size/2, size,
-            -size/2, size
+            size/2, size * sqrt3,
+            -size/2, size * sqrt3
         };
 
         short[] triangles = new short[]{

@@ -12,6 +12,7 @@ import java.util.Random;
 
 /**
  * Created by Kacper Opyrchal on 04.02.2017.
+ * Updated by Marcin Holota on 13.02.2017.
  */
 
 public class Board {
@@ -33,12 +34,11 @@ public class Board {
 
     private void createBoard(){
 
-        float a = Gdx.graphics.getWidth() / xSize;
-
-        a /= 2;
+        float k = (float)(3*xSize + 0.5);
+        float a = Gdx.graphics.getWidth() / k;
 
         for(int i = 0; i < ySize; ++i){
-            for(int j = 0, jn = 0; j < xSize / 1.5 - i%2; ++j, ++jn){
+            for(int j = 0; j < xSize; ++j){
                 Color color = Color.BLACK;
                 Random rand = new Random();
 
@@ -67,7 +67,7 @@ public class Board {
 
     public void drawBoard(){
         for(int i = 0; i < ySize; ++i){
-            for(int j = 0; j < xSize / 1.5 - i%2; ++j){
+            for(int j = 0; j < xSize; ++j){
 
                 cells[j][i].drawHexagon();
             }
