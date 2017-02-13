@@ -26,9 +26,9 @@ public class Board {
     List<City> cities;
 
     public Board(int xSize, int ySize) {
-        this.xSize = xSize;
+        this.xSize = xSize/2;
         this.ySize = ySize;
-        cells = new Cell[xSize][ySize];
+        cells = new Cell[this.xSize][this.ySize];
         createBoard();
     }
 
