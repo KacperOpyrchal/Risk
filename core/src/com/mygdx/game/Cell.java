@@ -15,6 +15,7 @@ import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -45,6 +46,7 @@ public class Cell {
         setRealY();
         setTextureHexagon(color);
         setShape(size);
+        neighbours = new ArrayList<Cell>();
     }
 
     private void setRealX(){
@@ -96,6 +98,32 @@ public class Cell {
     }
 
     public void findNeighbours(int width, int height){
+        Cell newNeighbour = topNeighbour();
+        if(validate(newNeighbour, width, height))
+            neighbours.add(newNeighbour);
+
+        newNeighbour = topLeftNeighbour();
+        if(validate(newNeighbour, width, height))
+            neighbours.add(newNeighbour);
+
+        newNeighbour = topRightNeighbour();
+        if(validate(newNeighbour, width, height))
+            neighbours.add(newNeighbour);
+
+        newNeighbour = bottomNeighbour();
+        if(validate(newNeighbour, width, height))
+            neighbours.add(newNeighbour);
+
+        newNeighbour = bottomLeftNeighbour();
+        if(validate(newNeighbour, width, height))
+            neighbours.add(newNeighbour);
+
+        newNeighbour = bottomRightNeighbour();
+        if(validate(newNeighbour, width, height))
+            neighbours.add(newNeighbour);
+    }
+
+    public void findNeighbours(Board board){
         Cell newNeighbour = topNeighbour();
         if(validate(newNeighbour, width, height))
             neighbours.add(newNeighbour);

@@ -26,7 +26,7 @@ public class Board {
     List<City> cities;
 
     public Board(int xSize, int ySize) {
-        this.xSize = xSize/2;
+        this.xSize = xSize;
         this.ySize = ySize;
         cells = new Cell[this.xSize][this.ySize];
         createBoard();
@@ -63,6 +63,10 @@ public class Board {
                 cells[j][i] = new Cell(j, i, a, color);
             }
         }
+
+        Color color = Color.BLACK;
+
+        cells[xSize-5][ySize-3] = new Cell(xSize-5, ySize-3, a, color);
     }
 
     public void drawBoard(){
