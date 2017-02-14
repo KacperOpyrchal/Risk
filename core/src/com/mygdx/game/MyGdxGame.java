@@ -49,7 +49,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	@Override
 	public void create() {
 
-		board = new Board(12, 24);
+		board = new Board(12, 36);
 
 		testCell = new Cell(100, 100, 100, Color.GREEN);
 		//testCell.setTextureHexagon(Color.GREEN);
@@ -85,13 +85,15 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
 		board.drawBoard();
-		/*if(menu.isStartActive()) {
-			RenderBoard.renderGrid(shapeRenderer, 9, 16);
-		}
 
 		batch.begin();
 		menu.renderMenu(batch);
 		batch.end();
+
+
+		/*if(menu.isStartActive()) {
+			RenderBoard.renderGrid(shapeRenderer, 9, 16);
+		}
 
 		RenderBoard.renderHexagon(shapeRenderer, 200, 500, 150);
 

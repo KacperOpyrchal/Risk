@@ -45,8 +45,8 @@ public class Board {
     private void createBoardV2(){
         Color color = Color.BLACK;
         Random random = new Random();
-        for(int i = 0; i < 5; i++) {
-            switch(i){
+        for(int i = 0; i < 10; i++) {
+            /*switch(i){
                 case 0:
                     color = Color.GREEN;
                     break;
@@ -62,7 +62,7 @@ public class Board {
                 case 4:
                     color = Color.ORANGE;
                     break;
-            }
+            }*/
             int xCenter = random.nextInt(xSize);
             int yCenter = random.nextInt(ySize);
 
@@ -89,6 +89,9 @@ public class Board {
 
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
+
+                citiesBoolean[j][i] = false;
+
                 Color color = Color.BLACK;
                 Random rand = new Random();
 
@@ -116,9 +119,9 @@ public class Board {
             }
         }
 
-        Color color = Color.BLACK;
+        //Color color = Color.BLACK;
 
-        cells[xSize-5][ySize-3] = new Cell(xSize-5, ySize-3, a, color);
+        //cells[xSize-5][ySize-3] = new Cell(xSize-5, ySize-3, a, color);
     }
 
 
