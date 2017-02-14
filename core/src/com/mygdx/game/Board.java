@@ -23,8 +23,9 @@ public class Board {
 
 
 
-    Cell[][] cells;
-    List<City> cities;
+    public Cell[][] cells;
+    public boolean[][] citiesBoolean;
+    public List<City> cities;
 
     public Board(int xSize, int ySize) {
         this.xSize = xSize;
@@ -73,7 +74,15 @@ public class Board {
 
 
     // Punkt D = (xD, yD) to punkt do sprawdzenia czy się zawiera w figurze, Center to punkt ktory został wylosowany i figura jest tworzona na jego podstawie
-    private boolean linearInequation(float xA, float yA, float xB,float yB, int xCenter, int yCenter, int xD, int yD){  // A = (xA,yB), B = ...
+    private boolean linearInequation(Vector2 A, Vector2 B, Vector2 Center, Vector2 D){  // A = (xA,yB), B = ...
+        float xA = A.x;
+        float yA = A.y;
+        float xB = B.x;
+        float yB = B.y;
+        float xCenter = Center.x;
+        float yCenter = Center.y;
+        float xD = D.x;
+        float yD = D.y;
 
         float a = (yA - yB)/(xA - xB); // f(x) = ax+b
         float b = yA - a * xA;
@@ -93,7 +102,9 @@ public class Board {
     }
 
 
-    private void createRandomFigure(int xCenter, int yCenter, int radius, int n, Vector2[] vertices){ // figura jest tworzona na podstawie koła ///  n - ilość wierzchołków
+    private void createRandomFigure(Vector2 Center, int radius, int n, Vector2[] vertices){ // figura jest tworzona na podstawie koła ///  n - ilość wierzchołków
+        float xCenter = Center.x;
+        float yCenter = Center.y;
 
         int angle = 360 / n; // koło jest dzielone na fragmenty
 
@@ -116,6 +127,65 @@ public class Board {
         }
     }
 
+
+    private boolean inFigure(Vector2 Center, Vector2[] vertices, Vector2 D, int n){
+
+        boolean in = true; // czy jest w figurze
+
+        for(int i = 0, j; i < n; i++){
+            j = (i + 1) % n;
+            in = linearInequation(vertices[i], vertices[j], Center, D);
+            if(!in) break;
+        }
+
+        return in;
+    }
+
+    private int xLeftLimit(float x, int radius){ // funkcja zwraca pierwszego x ktory zawiera się w xCenter - Radius
+        int xLim = (int)(x) - radius;
+        if(xLim < 0) xLim = 0;
+
+        return xLim;
+    }
+
+    private int xRightLimit(float x, int radius){
+        int xLim = (int)(x) + radius;
+        if(xLim >= xSize) xLim = xSize - 1;
+
+        return xLim;
+    }
+
+    private int yTopLimit(float y, int radius){
+        int yLim = (int)(y) - radius;
+        if(yLim < 0) yLim = 0;
+
+        return yLim;
+    }
+
+    private int yLowerLimit(float y, int radius){
+        int yLim = (int)(y) + radius;
+        if(yLim >= ySize) yLim = ySize - 1;
+
+        return yLim;
+    }
+
+
+    private void createCity(Vector2 Center, int n, int radiusRand, Color color){
+
+        Vector2[] vertices = new Vector2[n];
+
+        Random random = new Random();
+        int radius = random.nextInt(radiusRand - 1) + 1;
+
+        createRandomFigure(Center, n, radius, vertices);
+
+        for(int i = xLeftLimit(Center.x, radius); i <= xRightLimit(Center.x, radius); i++){
+            for(int j = yTopLimit(Center.y, radius); j <= yLowerLimit(Center.y, radius); j++){
+                ///////////////////////////////////////////////// później to zrobię...
+            }
+        }
+
+    }
 
 
 
