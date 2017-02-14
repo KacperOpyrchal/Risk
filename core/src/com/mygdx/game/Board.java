@@ -110,7 +110,7 @@ public class Board {
                         break;
                 }
 
-                color = Color.GOLD;
+                //color = Color.GOLD;
 
                 cells[j][i] = new Cell(j, i, a, color);
             }
