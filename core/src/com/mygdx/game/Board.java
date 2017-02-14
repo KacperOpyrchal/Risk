@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
+import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
@@ -20,6 +21,7 @@ public class Board {
 
     int xSize;
     int ySize;
+    float a;
 
 
 
@@ -31,13 +33,57 @@ public class Board {
         this.xSize = xSize;
         this.ySize = ySize;
         cells = new Cell[this.xSize][this.ySize];
-        createBoard();
+        citiesBoolean = new boolean[this.xSize][this.ySize];
+        float k = (float)(3*xSize + 0.5);
+        a = Gdx.graphics.getWidth() / k;
+        createBoardV2();
     }
 
-    private void createBoard(){
 
-        float k = (float)(3*xSize + 0.5);
-        float a = Gdx.graphics.getWidth() / k;
+    private void createBoardV2(){
+        Color color = Color.BLACK;
+        Random random = new Random();
+        for(int i = 0; i < 5; i++) {
+            switch(i){
+                case 0:
+                    color = Color.GREEN;
+                    break;
+                case 1:
+                    color = Color.RED;
+                    break;
+                case 2:
+                    color = Color.BLUE;
+                    break;
+                case 3:
+                    color = Color.GOLD;
+                    break;
+                case 4:
+                    color = Color.ORANGE;
+                    break;
+            }
+            int xCenter = random.nextInt(xSize);
+            int yCenter = random.nextInt(ySize);
+
+            Vector2 Center = new Vector2(xCenter, yCenter);
+
+            createCity(Center,4, 2, color);
+        }
+
+        color = Color.BLACK;
+        createBoardAddEmptySpace(color);
+    }
+
+    private void createBoardAddEmptySpace(Color color){
+        for(int i = 0; i < xSize; i++){
+            for(int j = 0; j < ySize; j++){
+                if(!citiesBoolean[i][j])
+                    cells[i][j] = new Cell(i, j, a, color);
+            }
+        }
+    }
+
+
+    private void createBoard(){
 
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
@@ -115,7 +161,7 @@ public class Board {
             int alpha = random.nextInt(angle); // losowany jest kąt względem ktorego wyliczany jest punkt
             int distance = random.nextInt(radius + 1); // losowana odleglość od punktu Center
 
-            double radianAngle = i * angle + alpha;
+            double radianAngle = Math.toRadians(i * angle + alpha);
 
             double x = Math.sin(radianAngle) * distance;
             double y = Math.cos(radianAngle) * distance;
@@ -132,10 +178,10 @@ public class Board {
 
         boolean in = true; // czy jest w figurze
 
-        for(int i = 0, j; i < n; i++){
-            j = (i + 1) % n;
+        for(int i = 0, j = 1; i < n; i++, j++){
+            j = j % n;
             in = linearInequation(vertices[i], vertices[j], Center, D);
-            if(!in) break;
+            if(!in) return in;
         }
 
         return in;
@@ -169,6 +215,12 @@ public class Board {
         return yLim;
     }
 
+    private boolean isOccupied(int x, int y){
+        if(citiesBoolean[x][y])
+            return true;
+        else return false;
+    }
+
 
     private void createCity(Vector2 Center, int n, int radiusRand, Color color){
 
@@ -179,9 +231,16 @@ public class Board {
 
         createRandomFigure(Center, n, radius, vertices);
 
+        Vector2 D = new Vector2();
+
         for(int i = xLeftLimit(Center.x, radius); i <= xRightLimit(Center.x, radius); i++){
             for(int j = yTopLimit(Center.y, radius); j <= yLowerLimit(Center.y, radius); j++){
-                ///////////////////////////////////////////////// później to zrobię...
+
+                D.x = i; D.y = j;
+
+                if(isOccupied(i, j) == false && inFigure(Center, vertices, D, n) == true)
+                    cells[i][j] = new Cell(i, j, a, color);
+                    citiesBoolean[i][j] = true;
             }
         }
 
@@ -194,8 +253,8 @@ public class Board {
     public void drawBoard(){
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
-
-                cells[j][i].drawHexagon();
+                if(citiesBoolean[i][j])
+                    cells[j][i].drawHexagon();
             }
         }
     }
