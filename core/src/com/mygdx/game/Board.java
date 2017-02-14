@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+
 /**
  * Created by Kacper Opyrchal on 04.02.2017.
  * Updated by Marcin Holota on 13.02.2017.
@@ -36,6 +37,7 @@ public class Board {
         citiesBoolean = new boolean[this.xSize][this.ySize];
         float k = (float)(3*xSize + 0.5);
         a = Gdx.graphics.getWidth() / k;
+        createBoard();
         createBoardV2();
     }
 
@@ -107,6 +109,8 @@ public class Board {
                         color = Color.ORANGE;
                         break;
                 }
+
+                color = Color.GOLD;
 
                 cells[j][i] = new Cell(j, i, a, color);
             }
@@ -226,6 +230,10 @@ public class Board {
 
         Vector2[] vertices = new Vector2[n];
 
+        for(int i = 0; i < n; ++i){
+            vertices[i] =  new Vector2(0, 0);
+        }
+
         Random random = new Random();
         int radius = random.nextInt(radiusRand - 1) + 1;
 
@@ -253,7 +261,7 @@ public class Board {
     public void drawBoard(){
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
-                if(citiesBoolean[i][j])
+                if(citiesBoolean[j][i])
                     cells[j][i].drawHexagon();
             }
         }
