@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ public class Board {
     List<City> cities;
 
     public Board(int xSize, int ySize) {
-        this.xSize = xSize/2;
+        this.xSize = xSize;
         this.ySize = ySize;
         cells = new Cell[this.xSize][this.ySize];
         createBoard();
@@ -64,6 +65,57 @@ public class Board {
             }
         }
     }
+
+
+
+    // Punkt D = (xD, yD) to punkt do sprawdzenia czy się zawiera w figurze, Center to punkt ktory został wylosowany i figura jest tworzona na jego podstawie
+    private boolean linearInequation(float xA, float yA, float xB,float yB, int xCenter, int yCenter, int xD, int yD){  // A = (xA,yB), B = ...
+
+        float a = (yA - yB)/(xA - xB); // f(x) = ax+b
+        float b = yA - a * xA;
+
+        float xCenterResult = a * xCenter + b;
+        float xDResult = a * xD + b;
+
+        if(xCenterResult <= yCenter){
+            if(xDResult <= yD)
+                return true;
+        } else {
+            if(xDResult >= yD)
+                return true;
+        }
+
+        return false;
+    }
+
+
+    private void createRandomFigure(int xCenter, int yCenter, int radius, int n, Vector2[] vertices){ // figura jest tworzona na podstawie koła ///  n - ilość wierzchołków
+
+        int angle = 360 / n; // koło jest dzielone na fragmenty
+
+        Random random = new Random();
+
+        for(int i = 0; i < n; i++){
+
+            int alpha = random.nextInt(angle); // losowany jest kąt względem ktorego wyliczany jest punkt
+            int distance = random.nextInt(radius + 1); // losowana odleglość od punktu Center
+
+            double radianAngle = i * angle + alpha;
+
+            double x = Math.sin(radianAngle) * distance;
+            double y = Math.cos(radianAngle) * distance;
+
+            float newX = (float)(xCenter + x);
+            float newY = (float)(yCenter + y);
+
+            vertices[i] = new Vector2(newX, newY);
+        }
+    }
+
+
+
+
+
 
     public void drawBoard(){
         for(int i = 0; i < ySize; ++i){
