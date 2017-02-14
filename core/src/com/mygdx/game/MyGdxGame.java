@@ -52,7 +52,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		board = new Board(12, 36);
 
 		testCell = new Cell(100, 100, 100, Color.GREEN);
-		//testCell.setTextureHexagon(Color.GREEN);
+		//testCell.setTextureHexagon(Color.GREEN); poza tym i tak nie zdam
 
 		//initButton();
 

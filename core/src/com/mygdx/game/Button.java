@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 
 /**
  * Created by Kacper Opyrchal on 09.02.2017.
+ * Updated by Michał Bednarz on 14.02.2017.
  */
 
 public class Button {
@@ -21,6 +22,10 @@ public class Button {
     public void update(SpriteBatch batch) {
         //checkIfClicked(input_x, input_y);
         skin.draw(batch);
+    }
+
+    public void startAnimation(){
+
     }
 
     public boolean checkIfClicked (float ix, float iy) {
