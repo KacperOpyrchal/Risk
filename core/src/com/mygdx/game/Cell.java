@@ -23,6 +23,7 @@ import java.util.List;
  * Updated by Marcin Holota on 10.02.2017
  * Updated by Kacper Opyrchal on 10.02.2017
  *  1) Draw method has been added
+ *  2) Finding method has been improved
  */
 
 public class Cell {
@@ -97,7 +98,8 @@ public class Cell {
         return bottomRight;
     }
 
-    public void findNeighbours(int width, int height){
+    @Deprecated
+    private void findNeighbours(int width, int height){
         Cell newNeighbour = topNeighbour();
         if(validate(newNeighbour, width, height))
             neighbours.add(newNeighbour);
@@ -125,29 +127,29 @@ public class Cell {
 
     public void findNeighbours(Board board){
         Cell newNeighbour = topNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
+        if(validate(newNeighbour, board.getX(), board.getY()))
+            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
 
         newNeighbour = topLeftNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
+        if(validate(newNeighbour, board.getX(), board.getY()))
+            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
 
         newNeighbour = topRightNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
+        if(validate(newNeighbour,  board.getX(), board.getY()))
+            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
 
         newNeighbour = bottomNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
+        if(validate(newNeighbour,  board.getX(), board.getY()))
+            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
 
         newNeighbour = bottomLeftNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
+        if(validate(newNeighbour,  board.getX(), board.getY()))
+            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
 
         newNeighbour = bottomRightNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
-    }
+        if(validate(newNeighbour,  board.getX(), board.getY()))
+            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
+    } // ta funkcja ustawia wskaźniki na sąsiadów zamiast tworzyć nowe obiekty
 
     public void setTextureHexagon(Color textureColor){ // kolory typu BLACK, RED...
         Pixmap pixMap = new Pixmap(1,1, Pixmap.Format.RGBA8888);
