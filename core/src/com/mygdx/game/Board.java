@@ -45,8 +45,8 @@ public class Board {
     private void createBoardV2(){
         Color color = Color.BLACK;
         Random random = new Random();
-        for(int i = 0; i < 10; i++) {
-            /*switch(i){
+        for(int i = 0; i < 20; i++) {
+            switch(i%5){
                 case 0:
                     color = Color.GREEN;
                     break;
@@ -62,13 +62,13 @@ public class Board {
                 case 4:
                     color = Color.ORANGE;
                     break;
-            }*/
+            }
             int xCenter = random.nextInt(xSize);
             int yCenter = random.nextInt(ySize);
 
             Vector2 Center = new Vector2(xCenter, yCenter);
 
-            createCity(Center,4, 2, color);
+            createCity(Center,7, 4, color);
         }
 
         color = Color.BLACK;
@@ -166,7 +166,7 @@ public class Board {
         for(int i = 0; i < n; i++){
 
             int alpha = random.nextInt(angle); // losowany jest kąt względem ktorego wyliczany jest punkt
-            int distance = random.nextInt(radius + 1); // losowana odleglość od punktu Center
+            int distance = random.nextInt(radius) + 2; // losowana odleglość od punktu Center
 
             double radianAngle = Math.toRadians(i * angle + alpha);
 
@@ -233,14 +233,14 @@ public class Board {
 
         Vector2[] vertices = new Vector2[n];
 
-        for(int i = 0; i < n; ++i){
+      /*  for(int i = 0; i < n; ++i){
             vertices[i] =  new Vector2(0, 0);
-        }
+        }*/
 
         Random random = new Random();
         int radius = random.nextInt(radiusRand - 1) + 1;
 
-        createRandomFigure(Center, n, radius, vertices);
+        createRandomFigure(Center, radius, n, vertices);
 
         Vector2 D = new Vector2();
 
@@ -249,9 +249,10 @@ public class Board {
 
                 D.x = i; D.y = j;
 
-                if(isOccupied(i, j) == false && inFigure(Center, vertices, D, n) == true)
+                if(isOccupied(i, j) == false && inFigure(Center, vertices, D, n) == true){
                     cells[i][j] = new Cell(i, j, a, color);
                     citiesBoolean[i][j] = true;
+                }
             }
         }
 
@@ -264,7 +265,7 @@ public class Board {
     public void drawBoard(){
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
-                if(citiesBoolean[j][i])
+                //if(citiesBoolean[j][i])
                     cells[j][i].drawHexagon();
             }
         }
