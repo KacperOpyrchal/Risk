@@ -49,10 +49,10 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	@Override
 	public void create() {
 
-		board = new Board(20, 40);
+		board = new Board(20, 80);
 
 		testCell = new Cell(100, 100, 100, Color.GREEN);
-		//testCell.setTextureHexagon(Color.GREEN); poza tym i tak nie zdam
+		//testCell.setTextureHexagon(Color.GREEN);
 
 		//initButton();
 
@@ -86,10 +86,10 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 
 		board.drawBoard();
 
-		batch.begin();
+		/*batch.begin();
 		menu.renderMenu(batch);
 		batch.end();
-
+		*/
 
 		/*if(menu.isStartActive()) {
 			RenderBoard.renderGrid(shapeRenderer, 9, 16);

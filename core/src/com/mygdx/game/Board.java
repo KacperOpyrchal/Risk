@@ -58,7 +58,8 @@ public class Board {
                     break;
             }
 
-            City newCity = new City(5,5,"aaaa",6,6,cells,citiesBoolean,a,xSize,ySize,color);
+            //City newCity = new City(5,5,"aaaa",6,6,cells,citiesBoolean,a,xSize,ySize,color);
+            City newCity = new City(5, "aaaa", this, color);
             cities.add(newCity);
 
         }

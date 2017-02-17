@@ -124,9 +124,11 @@ public class ShapeOfCity {
     }
 
     private boolean isOccupied(int x, int y){ // wiem że to można zrobić w ifie !citiesBoolean[x][y] ale tak będzie czytelniej
-        if(citiesBoolean[x][y])
+        /*if(citiesBoolean[x][y])
             return true;
         return false;
+        */
+        return citiesBoolean[x][y]; // tak chyba będzie jeszcze czytelniej :P ~Kacper
     }
 
     private void createCity(Vector2 Center, int n, int radiusRand, Color color){
