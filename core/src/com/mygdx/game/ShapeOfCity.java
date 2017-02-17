@@ -20,13 +20,13 @@ public class ShapeOfCity {
     Cell[][] cells;
     List<Cell> cellsCity;
 
-    public ShapeOfCity(int xSize, int ySize, Cell[][] cells, boolean[][] citiesBoolean, List<Cell> cellsCity, Color color, float a, int radius){
-        this.xSize = xSize;
-        this.ySize = ySize;
-        this.a = a;
+    public ShapeOfCity(Board board, List<Cell> cellsCity, Color color, int radius){
+        this.xSize = board.xSize;
+        this.ySize = board.ySize;
+        this.a = board.a;
 
-        this.cells = cells;
-        this.citiesBoolean = citiesBoolean;
+        this.cells = board.cells;
+        this.citiesBoolean = board.citiesBoolean;
         this.cellsCity = cellsCity;
 
         Random random = new Random();

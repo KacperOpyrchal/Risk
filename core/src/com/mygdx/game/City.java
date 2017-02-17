@@ -30,7 +30,7 @@ public class City {
 
         this.cells = new ArrayList<Cell>();
 
-        shape = new ShapeOfCity(board.getX(), board.getY(), board.cells, board.citiesBoolean, this.cells, color, board.a, 10);
+        shape = new ShapeOfCity(board, this.cells, color, 10);
 
     }
 
@@ -44,7 +44,7 @@ public class City {
 
         this.cells = new ArrayList<Cell>();
 
-        shape = new ShapeOfCity(xSize,ySize,cells,citiesBoolean,this.cells,color,a,10);
+        //shape = new ShapeOfCity(xSize,ySize,cells,citiesBoolean,this.cells,color,a,10);
 
     }
 
