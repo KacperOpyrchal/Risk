@@ -7,6 +7,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Vector2;
+import com.badlogic.gdx.physics.box2d.PolygonShape;
 
 /**
  * Created by JavaDev on 05.11.2016.
@@ -15,7 +17,19 @@ public class RenderBoard {
 
     static BitmapFont font;
 
+    static Vector2[] vertices;
+
+
     public static void init(){
+        vertices = new Vector2[6];
+
+        vertices[0] = new Vector2(82f  , 0f  );
+        vertices[1] = new Vector2(146f , 40f  );
+        vertices[2] = new Vector2(385f , 268f);
+        vertices[3] = new Vector2(322f , 341f);
+        vertices[4] = new Vector2(225f , 322f);
+        vertices[5] = new Vector2(282f , 398f);
+
         font = new BitmapFont();
     }
 
@@ -76,6 +90,14 @@ public class RenderBoard {
 
 
         shapeRenderer.end();
+
+    }
+
+    public static void renderShape(ShapeRenderer shapeRenderer){
+
+        PolygonShape shape = new PolygonShape();
+        shape.set(vertices);
+
 
     }
 
