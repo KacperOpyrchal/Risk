@@ -51,7 +51,7 @@ public class Board {
 
     private void createBoard(){
         Color color = Color.BLACK;
-        for(int i = 0; i < 9; i++){
+        for(int i = 0; i < 15; i++){
             switch (i%3){
                 case 0:
                     color = Color.YELLOW;
@@ -60,7 +60,7 @@ public class Board {
                     color = Color.RED;
                     break;
                 case 2:
-                    color = Color.BLUE;
+                    color = Color.DARK_GRAY;
                     break;
             }
 
@@ -69,6 +69,8 @@ public class Board {
             cities.add(newCity);
 
         }
+        color = Color.BLACK;
+        FillEmptySpace fill = new FillEmptySpace(this, color);
 
     }
 
@@ -76,10 +78,11 @@ public class Board {
         Color color = Color.FOREST;
         for(int i = 0; i < xSize; i++){
             for(int j = 0; j < ySize; j++){
-                if(inMap[i][j]){
-                    cells[i][j] = new Cell(i,j,a,color);
-                    //citiesBoolean[i][j] = true;
-                }
+                if(inMap[i][j])
+                    color = Color.FOREST;
+                else
+                    color = Color.BLUE;
+                cells[i][j] = new Cell(i,j,a,color);
             }
         }
     }
@@ -92,7 +95,7 @@ public class Board {
     public void drawBoard(){
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
-                if(inMap[j][i])
+                //if(inMap[j][i])
                     cells[j][i].drawHexagon();
             }
         }
