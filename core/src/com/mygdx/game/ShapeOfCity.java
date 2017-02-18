@@ -36,7 +36,7 @@ public class ShapeOfCity {
 
         Vector2 Center = new Vector2(x,y);
 
-        int n = random.nextInt(4) + 3;
+        int n = random.nextInt(4) + 7;
 
         createCity(Center, n, radius, color);
     }
@@ -60,8 +60,6 @@ public class ShapeOfCity {
     }
 
     private void createRandomFigure(Vector2 Center, int radius, int n, Vector2[] vertices){ // figura jest tworzona na podstawie koła ///  n - ilość wierzchołków
-        float xCenter = Center.x;
-        float yCenter = Center.y;
 
         int angle = 360 / n; // koło jest dzielone na fragmenty
 
@@ -77,8 +75,8 @@ public class ShapeOfCity {
             double x = Math.sin(radianAngle) * distance;
             double y = Math.cos(radianAngle) * distance;
 
-            float newX = (float)(xCenter + x);
-            float newY = (float)(yCenter + y);
+            float newX = (float)(Center.x + x);
+            float newY = (float)( (Center.y + y * (6.0 / Math.sqrt(3.0))));
 
             vertices[i] = new Vector2(newX, newY);
         }
@@ -110,24 +108,20 @@ public class ShapeOfCity {
     }
 
     private int yTopLimit(float y, int radius){
-        int yLim = (int)(y) - radius;
+        int yLim = (int)(y) - 3*radius;
         if(yLim < 0) yLim = 0;
 
         return yLim;
     }
 
     private int yLowerLimit(float y, int radius){
-        int yLim = (int)(y) + radius;
+        int yLim = (int)(y) + 3*radius;
         if(yLim >= ySize) yLim = ySize - 1;
 
         return yLim;
     }
 
     private boolean isOccupied(int x, int y){ // wiem że to można zrobić w ifie !citiesBoolean[x][y] ale tak będzie czytelniej
-        /*if(citiesBoolean[x][y])
-            return true;
-        return false;
-        */
         return citiesBoolean[x][y]; // tak chyba będzie jeszcze czytelniej :P ~Kacper
     }
 
