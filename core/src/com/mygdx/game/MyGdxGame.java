@@ -48,7 +48,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 
 	@Override
 	public void create() {
-		int xSize = 20;
+		int xSize = 18;
 		board = new Board(xSize, (int)(xSize * 6/Math.sqrt(3.0)));
 
 		testCell = new Cell(100, 100, 100, Color.GREEN);
