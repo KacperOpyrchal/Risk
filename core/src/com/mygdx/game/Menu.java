@@ -28,10 +28,15 @@ public class Menu {
         startBtn = new Button(new Texture("mbtn2.png"), 200, 500, 200, 200);
     }
 
-    public void renderMenu(SpriteBatch batch){
+    public void renderMenu(SpriteBatch batch) {
 
         startBtn.update(batch);
+
+        startBtn.startAnimation(batch);
+
     }
+
+
 
 
 }
