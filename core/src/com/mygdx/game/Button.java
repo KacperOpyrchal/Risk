@@ -3,9 +3,6 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.g2d.TextureRegion;
-
-import static com.mygdx.game.RenderBoard.font;
 
 /**
  * Created by Kacper Opyrchal on 09.02.2017.
@@ -25,12 +22,10 @@ public class Button {
     public void update(SpriteBatch batch) {
         //checkIfClicked(input_x, input_y);
         skin.draw(batch);
-        font.draw(batch,"Hello World", 300, 300);
-
     }
 
-    public void startAnimation(SpriteBatch batch) {
-       // skin.rotate(20);
+    public void startAnimation(){
+
 
     }
 

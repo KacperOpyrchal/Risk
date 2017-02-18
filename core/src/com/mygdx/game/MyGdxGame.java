@@ -25,7 +25,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import java.util.Random;
 
 public class
-MyGdxGame extends ApplicationAdapter{
+MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	ShapeRenderer shapeRenderer;
 	SpriteBatch batch;
 
@@ -41,20 +41,20 @@ MyGdxGame extends ApplicationAdapter{
 	Skin skin;
 	TextureAtlas buttonAtlas;
 
+	Cell testCell;
 	Board board;
 
 	Menu menu;
 
-	boolean isBoard;
-	boolean isMenu;
-
 	@Override
 	public void create() {
 
-		isMenu = true;
-		isBoard = false;
-
 		board = new Board(20, 80);
+
+		testCell = new Cell(100, 100, 100, Color.GREEN);
+		//testCell.setTextureHexagon(Color.GREEN);
+
+		//initButton();
 
 		float w = Gdx.graphics.getWidth();
 		float h = Gdx.graphics.getHeight();
@@ -63,7 +63,7 @@ MyGdxGame extends ApplicationAdapter{
 		shapeRenderer = new ShapeRenderer();
 		menu = new Menu();
 
-		/*
+		///*
 
 		camera = new OrthographicCamera();
 		camera.setToOrtho(false,w,h);
@@ -74,9 +74,8 @@ MyGdxGame extends ApplicationAdapter{
 		//*/
 
 		RenderBoard.init();
-		//Gdx.input.setInputProcessor(this);
+		Gdx.input.setInputProcessor(this);
 	}
-
 	@Override
 	public void resize(int width, int height) {}
 	@Override
@@ -85,23 +84,30 @@ MyGdxGame extends ApplicationAdapter{
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		if(isBoard){
-			RenderBoard.renderHexBoard(board);
-		}
-		if(isMenu){
-			batch.begin();
-			menu.renderMenu(batch);
-			batch.end();
-		}
+		board.drawBoard();
 
+		/*batch.begin();
+		menu.renderMenu(batch);
+		batch.end();
+		*/
 
 		/*if(menu.isStartActive()) {
 			RenderBoard.renderGrid(shapeRenderer, 9, 16);
-		}*/
+		}
+
+		RenderBoard.renderHexagon(shapeRenderer, 200, 500, 150);
+
+		camera.update();
+		tiledMapRenderer.setView(camera);
+		tiledMapRenderer.render();
+		camera.translate(1,1);*/
+
+		//testCell.drawHexagon();
+
+
 
 	}
 
-	/*
 	public void initButton(){
 		stage = new Stage();
 		Gdx.input.setInputProcessor(stage);
@@ -116,7 +122,7 @@ MyGdxGame extends ApplicationAdapter{
 		textButtonStyle.checked = skin.getDrawable("checked-button");
 		button = new TextButton("Button1", textButtonStyle);
 		stage.addActor(button);
-	}*/
+	}
 
 	@Override
 	public void pause() {}
@@ -128,58 +134,58 @@ MyGdxGame extends ApplicationAdapter{
 		shapeRenderer.dispose();
 	}
 
-//	@Override
-//	public boolean keyDown(int keycode) {
-//		return false;
-//	}
-//
-//	@Override
-//	public boolean keyUp(int keycode) {
-//		return false;
-//	}
-//
-//	@Override
-//	public boolean keyTyped(char character) {
-//		return false;
-//	}
-//
-//	@Override
-//	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-//		//Random rand = new Random();
-//		camera.translate(-100,-100);
-//
-//		//menu.setStartActive(!menu.isStartActive());
-//
-//		if(menu.startBtn.checkIfClicked(screenX, screenY)){
-//			menu.setStartActive(!menu.isStartActive());
-//		}
-//
-//		if(menu.isStartActive()){
-//			menu.startBtn.skin.setTexture(new Texture("mbtn2.png"));
-//		}else{
-//			menu.startBtn.skin.setTexture(new Texture("mbtn1.png"));
-//		}
-//
-//		return true;
-//	}
-//
-//	@Override
-//	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-//		return false;
-//	}
-//
-//	@Override
-//	public boolean touchDragged(int screenX, int screenY, int pointer) {
-//		return false;
-//	}
-//
-//	@Override
-//	public boolean mouseMoved(int screenX, int screenY) {
-//		return false;
-//	}
-//
-//	@Override
-//	public boolean scrolled(int amount) {
-//		return false;
-//	}
+	@Override
+	public boolean keyDown(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyUp(int keycode) {
+		return false;
+	}
+
+	@Override
+	public boolean keyTyped(char character) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+		//Random rand = new Random();
+		camera.translate(-100,-100);
+
+		//menu.setStartActive(!menu.isStartActive());
+
+		if(!menu.startBtn.checkIfClicked(screenX, screenY)){
+			menu.setStartActive(!menu.isStartActive());
+		}
+
+		if(menu.isStartActive()){
+			menu.startBtn.skin.setTexture(new Texture("mbtn2.png"));
+		}else{
+			menu.startBtn.skin.setTexture(new Texture("mbtn1.png"));
+		}
+
+		return true;
+	}
+
+	@Override
+	public boolean touchUp(int screenX, int screenY, int pointer, int button) {
+		return false;
+	}
+
+	@Override
+	public boolean touchDragged(int screenX, int screenY, int pointer) {
+		return false;
+	}
+
+	@Override
+	public boolean mouseMoved(int screenX, int screenY) {
+		return false;
+	}
+
+	@Override
+	public boolean scrolled(int amount) {
+		return false;
+	}
 }

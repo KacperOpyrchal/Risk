@@ -36,7 +36,7 @@ public class ShapeOfCity {
 
         Vector2 Center = new Vector2(x,y);
 
-        int n = random.nextInt(4) + 7;
+        int n = 3; /// random.nextInt(4) + 6;
 
         createCity(Center, n, radius, color);
     }
