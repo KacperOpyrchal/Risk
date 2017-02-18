@@ -25,20 +25,26 @@ public class Board {
     int ySize;
     float a;
 
+    ShapeOfCity shape;
+
 
 
     public Cell[][] cells;
     public boolean[][] citiesBoolean;
     public List<City> cities;
+    public boolean[][] inMap;
 
     public Board(int xSize, int ySize) {
         this.xSize = xSize;
         this.ySize = ySize;
         cells = new Cell[this.xSize][this.ySize];
         citiesBoolean = new boolean[this.xSize][this.ySize];
+        inMap = new boolean[this.xSize][this.ySize];
         float k = (float)(3*xSize + 0.5);
         a = Gdx.graphics.getWidth() / k;
         cities = new ArrayList<City>();
+        createShapeOfBoard();
+        ABC();
         createBoard();
     }
 
@@ -48,13 +54,13 @@ public class Board {
         for(int i = 0; i < 9; i++){
             switch (i%3){
                 case 0:
-                    color = Color.BLUE;
+                    color = Color.YELLOW;
                     break;
                 case 1:
-                    color = Color.FOREST;
+                    color = Color.RED;
                     break;
                 case 2:
-                    color = Color.CHARTREUSE; // chciałem sprawdzić jaki to kolor
+                    color = Color.BLUE;
                     break;
             }
 
@@ -66,11 +72,27 @@ public class Board {
 
     }
 
+    private void ABC(){
+        Color color = Color.FOREST;
+        for(int i = 0; i < xSize; i++){
+            for(int j = 0; j < ySize; j++){
+                if(inMap[i][j]){
+                    cells[i][j] = new Cell(i,j,a,color);
+                    //citiesBoolean[i][j] = true;
+                }
+            }
+        }
+    }
+
+    private void createShapeOfBoard(){
+        shape = new ShapeOfCity(this, 0);
+    }
+
 
     public void drawBoard(){
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
-                if(citiesBoolean[j][i])
+                if(inMap[j][i])
                     cells[j][i].drawHexagon();
             }
         }

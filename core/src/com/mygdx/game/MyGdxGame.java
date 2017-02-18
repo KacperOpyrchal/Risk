@@ -48,8 +48,8 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 
 	@Override
 	public void create() {
-
-		board = new Board(22, 80);
+		int xSize = 20;
+		board = new Board(xSize, (int)(xSize * 6/Math.sqrt(3.0)));
 
 		testCell = new Cell(100, 100, 100, Color.GREEN);
 		//testCell.setTextureHexagon(Color.GREEN);

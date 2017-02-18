@@ -19,6 +19,7 @@ public class ShapeOfCity {
     boolean[][] citiesBoolean;
     Cell[][] cells;
     List<Cell> cellsCity;
+    boolean[][] inMap;
 
     public ShapeOfCity(Board board, List<Cell> cellsCity, Color color, int radius){
         this.xSize = board.xSize;
@@ -29,6 +30,8 @@ public class ShapeOfCity {
         this.citiesBoolean = board.citiesBoolean;
         this.cellsCity = cellsCity;
 
+        this.inMap = board.inMap;
+
         Random random = new Random();
 
         float x = (float)(random.nextInt(xSize));
@@ -36,13 +39,34 @@ public class ShapeOfCity {
 
         Vector2 Center = new Vector2(x,y);
 
-        int n = 3; /// random.nextInt(4) + 6;
+        int n = random.nextInt(4) + 6;
 
         createCity(Center, n, radius, color);
     }
 
-    private boolean linearInequation(Vector2 A, Vector2 B, Vector2 Center, Vector2 D){
+    public ShapeOfCity(Board board, int radius){
+        this.xSize = board.xSize;
+        this.ySize = board.ySize;
+        this.a = board.a;
 
+        this.cells = board.cells;
+        this.citiesBoolean = board.citiesBoolean;
+        this.inMap = board.inMap;
+
+        Random random = new Random();
+
+        float x = (float)(random.nextInt(xSize));
+        float y = (float)(random.nextInt(ySize));
+
+        Vector2 Center = new Vector2(xSize / 2, ySize / 2);
+
+        int n = random.nextInt(6) + 11;
+
+        createMap(Center, n, radius);
+    }
+
+    private boolean linearInequation(Vector2 A, Vector2 B, Vector2 Center, Vector2 D){
+        if(A.x - B.x == 0) A.x += 0.1;
         float a = (A.y - B.y)/(A.x - B.x);
         float b = A.y - a * A.x;
 
@@ -59,7 +83,7 @@ public class ShapeOfCity {
         return false;
     }
 
-    private void createRandomFigure(Vector2 Center, int radius, int n, Vector2[] vertices){ // figura jest tworzona na podstawie koła ///  n - ilość wierzchołków
+    private void createRandomFigure(Vector2 Center, int radius, int n, Vector2[] vertices, int minLength){ // figura jest tworzona na podstawie koła ///  n - ilość wierzchołków
 
         int angle = 360 / n; // koło jest dzielone na fragmenty
 
@@ -68,7 +92,7 @@ public class ShapeOfCity {
         for(int i = 0; i < n; i++){
 
             int alpha = random.nextInt(angle); // losowany jest kąt względem ktorego wyliczany jest punkt
-            int distance = random.nextInt(radius) + 2; // losowana odleglość od punktu Center
+            int distance = random.nextInt(radius) + minLength; // losowana odleglość od punktu Center
 
             double radianAngle = Math.toRadians(i * angle + alpha);
 
@@ -132,7 +156,7 @@ public class ShapeOfCity {
         Random random = new Random();
         int radius = random.nextInt(radiusRand - 1) + 1;
 
-        createRandomFigure(Center, radius, n, vertices);
+        createRandomFigure(Center, radius, n, vertices, 2);
 
         Vector2 D = new Vector2();
 
@@ -141,10 +165,36 @@ public class ShapeOfCity {
 
                 D.x = i; D.y = j;
 
-                if(!isOccupied(i, j) && inFigure(Center, vertices, D, n)){
+                if(inMap[i][j] && !isOccupied(i, j) && inFigure(Center, vertices, D, n)){
                     cells[i][j] = new Cell(i, j, a, color);
                     citiesBoolean[i][j] = true;
                     cellsCity.add(cells[i][j]);
+                }
+            }
+        }
+    }
+
+    private void createMap(Vector2 Center, int n, int radiusRand){
+
+        Vector2[] vertices = new Vector2[n];
+
+        Random random = new Random();
+
+        int radius = xSize / 4;
+        createRandomFigure(Center, radius, n, vertices, 2 * xSize / 5);
+
+        Vector2 D = new Vector2();
+
+        Color color = Color.RED;
+
+        for(int i = 0; i < xSize; i++){
+            for(int j = 0; j < ySize; j++){
+
+                D.x = i; D.y = j;
+
+                if(inFigure(Center, vertices, D, n)){
+                    cells[i][j] = new Cell(i, j, a, color);
+                    inMap[i][j] = true;
                 }
             }
         }

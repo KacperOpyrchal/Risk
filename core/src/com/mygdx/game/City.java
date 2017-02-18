@@ -30,7 +30,7 @@ public class City {
 
         this.cells = new ArrayList<Cell>();
 
-        shape = new ShapeOfCity(board, this.cells, color, 10);
+        shape = new ShapeOfCity(board, this.cells, color, 5);
 
     }
 
