@@ -45,33 +45,28 @@ public class Board {
         a = Gdx.graphics.getWidth() / k;
         cities = new ArrayList<City>();
         createShapeOfBoard();
-        ABC();
+        createMap();
         createBoard();
     }
 
 
     private void createBoard(){
-        //Color color = Color.BLACK;
 
         Pixmap pixmap = PixMaps.pixMapOne;
 
         for(int i = 0; i < 15; i++){
             switch (i%3){
                 case 0:
-                    //color = Color.YELLOW;
                     pixmap = PixMaps.pixMapTwo;
                     break;
                 case 1:
-                    //color = Color.RED;
                     pixmap = PixMaps.pixMapThree;
                     break;
                 case 2:
-                    //color = Color.DARK_GRAY;
                     pixmap = PixMaps.pixMapFour;
                     break;
             }
 
-            //City newCity = new City(5,5,"aaaa",6,6,cells,citiesBoolean,a,xSize,ySize,color);
             City newCity = new City(5, "aaaa", this, pixmap);
             cities.add(newCity);
 
@@ -81,16 +76,11 @@ public class Board {
 
     }
 
-    private void ABC(){
+    private void createMap(){
         Pixmap pixmap = PixMaps.pixMapOne;
 
         for(int i = 0; i < xSize; i++){
             for(int j = 0; j < ySize; j++){
-                if(inMap[i][j])
-                    pixmap = PixMaps.pixMapOne;
-                else
-                    pixmap = PixMaps.pixMapTwo;
-
                 cells[i][j] = new Cell(i, j, a, pixmap);
             }
         }
