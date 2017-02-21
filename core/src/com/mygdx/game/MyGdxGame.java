@@ -51,7 +51,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	@Override
 	public void create() {
 
-		xSize = 18;
+		xSize = 4;
 		board = new Board(xSize, (int)(xSize * 6/Math.sqrt(3.0)));
 
 		testCell = new Cell(100, 100, 100, Color.GREEN);
@@ -165,7 +165,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 
 		if(menu.renderBtn.checkIfClicked((float) screenX, Gdx.graphics.getHeight() - screenY)){
 			Gdx.app.log("KAP", "HEJ");
-			//board = new Board(xSize, (int)(xSize * 6/Math.sqrt(3.0)));
+			board = new Board(xSize, (int)(xSize * 6/Math.sqrt(3.0)));
 			//Wywala aplikację :P
 
 		}
