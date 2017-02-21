@@ -46,9 +46,12 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 
 	Menu menu;
 
+	int xSize;
+
 	@Override
 	public void create() {
-		int xSize = 18;
+
+		xSize = 18;
 		board = new Board(xSize, (int)(xSize * 6/Math.sqrt(3.0)));
 
 		testCell = new Cell(100, 100, 100, Color.GREEN);
@@ -86,10 +89,11 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 
 		board.drawBoard();
 
-		/*batch.begin();
+		///*
+		batch.begin();
 		menu.renderMenu(batch);
 		batch.end();
-		*/
+		//*/
 
 		/*if(menu.isStartActive()) {
 			RenderBoard.renderGrid(shapeRenderer, 9, 16);
@@ -152,18 +156,18 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 		//Random rand = new Random();
-		camera.translate(-100,-100);
+		//camera.translate(-100,-100);
 
 		//menu.setStartActive(!menu.isStartActive());
+		//int xSize = 18;
 
-		if(!menu.startBtn.checkIfClicked(screenX, screenY)){
-			menu.setStartActive(!menu.isStartActive());
-		}
+		Gdx.app.log("KAP", "I:O x = " + screenX + " y = " + screenY);
 
-		if(menu.isStartActive()){
-			menu.startBtn.skin.setTexture(new Texture("mbtn2.png"));
-		}else{
-			menu.startBtn.skin.setTexture(new Texture("mbtn1.png"));
+		if(menu.renderBtn.checkIfClicked((float) screenX, Gdx.graphics.getHeight() - screenY)){
+			Gdx.app.log("KAP", "HEJ");
+			//board = new Board(xSize, (int)(xSize * 6/Math.sqrt(3.0)));
+			//Wywala aplikację :P
+
 		}
 
 		return true;
