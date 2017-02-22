@@ -35,7 +35,7 @@ public class Cell {
     float size;
     Texture textureHexagon;
     PolygonSprite hexagon;
-    PolygonSpriteBatch hexagonBatch;
+    PolygonRegion polygonRegion;
 
     List<Cell> neighbours;
 
@@ -153,22 +153,7 @@ public class Cell {
             0, 5, 4
         }; // nie pytajcie czemu to jest... musi być, ale jest do niczego nie potrzebne...
 
-        PolygonRegion polygonRegion = new PolygonRegion(new TextureRegion(textureHexagon), vertices, triangles);
-
-        hexagon = new PolygonSprite(polygonRegion);
-        hexagon.setOrigin(0f, 0f);
-        hexagonBatch = new PolygonSpriteBatch();
-    }
-
-    public void drawHexagon(){
-
-        hexagonBatch.begin();
-
-        hexagon.setX(realX);
-        hexagon.setY(realY);
-        hexagon.draw(hexagonBatch);
-
-        hexagonBatch.end();
+        polygonRegion = new PolygonRegion(new TextureRegion(textureHexagon), vertices, triangles);
 
     }
 

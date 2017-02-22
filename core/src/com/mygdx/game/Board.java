@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
@@ -47,7 +48,7 @@ public class Board {
         a = Gdx.graphics.getWidth() / k;
         cities = new ArrayList<City>();
         createShapeOfBoard();
-        //createMap();
+        createMap();
         createBoard();
 
        /* Pixmap pixmap = PixMaps.pixMapOne;
@@ -116,10 +117,15 @@ public class Board {
 
     public void drawBoard(){
 
+        PolygonSpriteBatch polygonSpriteBatch = new PolygonSpriteBatch(6);
+
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
-                if(citiesBoolean[j][i])
-                    cells[j][i].drawHexagon();
+                //if(citiesBoolean[j][i]){
+                    polygonSpriteBatch.begin();
+                    polygonSpriteBatch.draw(cells[j][i].polygonRegion, cells[j][i].realX, cells[j][i].realY);
+                    polygonSpriteBatch.end();
+                //}
             }
         }
     }
