@@ -6,6 +6,7 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.OrthographicCamera;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
@@ -29,19 +30,6 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	ShapeRenderer shapeRenderer;
 	SpriteBatch batch;
 
-	Texture img;
-	TiledMap tiledMap;
-	OrthographicCamera camera;
-	TiledMapRenderer tiledMapRenderer;
-
-	Stage stage;
-	TextButton button;
-	TextButton.TextButtonStyle textButtonStyle;
-	BitmapFont font;
-	Skin skin;
-	TextureAtlas buttonAtlas;
-
-	Cell testCell;
 	Board board;
 
 	Menu menu;
@@ -51,30 +39,14 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	@Override
 	public void create() {
 
-		xSize = 4;
+		PixMaps.generatePixMaps();
+
+		xSize = 6;
 		board = new Board(xSize, (int)(xSize * 6/Math.sqrt(3.0)));
-
-		testCell = new Cell(100, 100, 100, Color.GREEN);
-		//testCell.setTextureHexagon(Color.GREEN);
-
-		//initButton();
-
-		float w = Gdx.graphics.getWidth();
-		float h = Gdx.graphics.getHeight();
 
 		batch = new SpriteBatch();
 		shapeRenderer = new ShapeRenderer();
 		menu = new Menu();
-
-		///*
-
-		camera = new OrthographicCamera();
-		camera.setToOrtho(false,w,h);
-		camera.update();
-		tiledMap = new TmxMapLoader().load("test.tmx");
-
-		tiledMapRenderer = new OrthogonalTiledMapRenderer(tiledMap);
-		//*/
 
 		RenderBoard.init();
 		Gdx.input.setInputProcessor(this);
@@ -89,43 +61,12 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 
 		board.drawBoard();
 
-		///*
 		batch.begin();
 		menu.renderMenu(batch);
 		batch.end();
-		//*/
-
-		/*if(menu.isStartActive()) {
-			RenderBoard.renderGrid(shapeRenderer, 9, 16);
-		}
-
-		RenderBoard.renderHexagon(shapeRenderer, 200, 500, 150);
-
-		camera.update();
-		tiledMapRenderer.setView(camera);
-		tiledMapRenderer.render();
-		camera.translate(1,1);*/
-
-		//testCell.drawHexagon();
 
 
 
-	}
-
-	public void initButton(){
-		stage = new Stage();
-		Gdx.input.setInputProcessor(stage);
-		font = new BitmapFont();
-		skin = new Skin();
-		buttonAtlas = new TextureAtlas(Gdx.files.internal("buttons/buttons.pack"));
-		skin.addRegions(buttonAtlas);
-		textButtonStyle = new TextButton.TextButtonStyle();
-		textButtonStyle.font = font;
-		textButtonStyle.up = skin.getDrawable("up-button");
-		textButtonStyle.down = skin.getDrawable("down-button");
-		textButtonStyle.checked = skin.getDrawable("checked-button");
-		button = new TextButton("Button1", textButtonStyle);
-		stage.addActor(button);
 	}
 
 	@Override
@@ -155,18 +96,13 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-		//Random rand = new Random();
-		//camera.translate(-100,-100);
-
-		//menu.setStartActive(!menu.isStartActive());
-		//int xSize = 18;
 
 		Gdx.app.log("KAP", "I:O x = " + screenX + " y = " + screenY);
 
 		if(menu.renderBtn.checkIfClicked((float) screenX, Gdx.graphics.getHeight() - screenY)){
 			Gdx.app.log("KAP", "HEJ");
 			board = new Board(xSize, (int)(xSize * 6/Math.sqrt(3.0)));
-			//Wywala aplikację :P
+			//Wywala aplikację dla duzych tablic :P
 
 		}
 

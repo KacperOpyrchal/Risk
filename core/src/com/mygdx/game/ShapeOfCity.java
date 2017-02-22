@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.List;
@@ -21,7 +22,7 @@ public class ShapeOfCity {
     List<Cell> cellsCity;
     boolean[][] inMap;
 
-    public ShapeOfCity(Board board, List<Cell> cellsCity, Color color, int radius){
+    public ShapeOfCity(Board board, List<Cell> cellsCity, Pixmap pixmap, int radius){
         this.xSize = board.xSize;
         this.ySize = board.ySize;
         this.a = board.a;
@@ -41,7 +42,7 @@ public class ShapeOfCity {
 
         int n = random.nextInt(4) + 6;
 
-        createCity(Center, n, radius, color);
+        createCity(Center, n, radius, pixmap);
     }
 
     public ShapeOfCity(Board board, int radius){
@@ -149,7 +150,7 @@ public class ShapeOfCity {
         return citiesBoolean[x][y]; // tak chyba będzie jeszcze czytelniej :P ~Kacper
     }
 
-    private void createCity(Vector2 Center, int n, int radiusRand, Color color){
+    private void createCity(Vector2 Center, int n, int radiusRand, Pixmap pixmap){
 
         Vector2[] vertices = new Vector2[n];
 
@@ -166,7 +167,7 @@ public class ShapeOfCity {
                 D.x = i; D.y = j;
 
                 if(inMap[i][j] && !isOccupied(i, j) && inFigure(Center, vertices, D, n)){
-                    cells[i][j] = new Cell(i, j, a, color);
+                    cells[i][j] = new Cell(i, j, a, pixmap);
                     citiesBoolean[i][j] = true;
                     cellsCity.add(cells[i][j]);
                 }
@@ -185,7 +186,8 @@ public class ShapeOfCity {
 
         Vector2 D = new Vector2();
 
-        Color color = Color.RED;
+        //Color color = Color.RED;
+        Pixmap pixmap = PixMaps.pixMapTwo;
 
         for(int i = 0; i < xSize; i++){
             for(int j = 0; j < ySize; j++){
@@ -193,7 +195,7 @@ public class ShapeOfCity {
                 D.x = i; D.y = j;
 
                 if(inFigure(Center, vertices, D, n)){
-                    cells[i][j] = new Cell(i, j, a, color);
+                    cells[i][j] = new Cell(i, j, a, pixmap);
                     inMap[i][j] = true;
                 }
             }

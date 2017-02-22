@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,13 +25,13 @@ public class City {
 
     private List<Cell> cells;
 
-    public City(int army, String membership, Board board, Color color) {
+    public City(int army, String membership, Board board, Pixmap pixmap) {
         this.army = army;
         this.membership = membership;
 
         this.cells = new ArrayList<Cell>();
 
-        shape = new ShapeOfCity(board, this.cells, color, 5);
+        shape = new ShapeOfCity(board, this.cells, pixmap, 5);
 
     }
 

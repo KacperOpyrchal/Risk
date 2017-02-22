@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.math.Vector;
@@ -50,39 +51,47 @@ public class Board {
 
 
     private void createBoard(){
-        Color color = Color.BLACK;
+        //Color color = Color.BLACK;
+
+        Pixmap pixmap = PixMaps.pixMapOne;
+
         for(int i = 0; i < 15; i++){
             switch (i%3){
                 case 0:
-                    color = Color.YELLOW;
+                    //color = Color.YELLOW;
+                    pixmap = PixMaps.pixMapTwo;
                     break;
                 case 1:
-                    color = Color.RED;
+                    //color = Color.RED;
+                    pixmap = PixMaps.pixMapThree;
                     break;
                 case 2:
-                    color = Color.DARK_GRAY;
+                    //color = Color.DARK_GRAY;
+                    pixmap = PixMaps.pixMapFour;
                     break;
             }
 
             //City newCity = new City(5,5,"aaaa",6,6,cells,citiesBoolean,a,xSize,ySize,color);
-            City newCity = new City(5, "aaaa", this, color);
+            City newCity = new City(5, "aaaa", this, pixmap);
             cities.add(newCity);
 
         }
-        color = Color.BLACK;
-        FillEmptySpace fill = new FillEmptySpace(this, color);
+        pixmap = PixMaps.pixMapOne;
+        FillEmptySpace fill = new FillEmptySpace(this, pixmap);
 
     }
 
     private void ABC(){
-        Color color = Color.FOREST;
+        Pixmap pixmap = PixMaps.pixMapOne;
+
         for(int i = 0; i < xSize; i++){
             for(int j = 0; j < ySize; j++){
                 if(inMap[i][j])
-                    color = Color.FOREST;
+                    pixmap = PixMaps.pixMapOne;
                 else
-                    color = Color.BLUE;
-                cells[i][j] = new Cell(i,j,a,color);
+                    pixmap = PixMaps.pixMapTwo;
+
+                cells[i][j] = new Cell(i, j, a, pixmap);
             }
         }
     }

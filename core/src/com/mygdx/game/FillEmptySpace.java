@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Color;
+import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
@@ -19,7 +20,7 @@ public class FillEmptySpace {
     boolean[][] citiesBoolean;
     List<Vector2> emptySpace;
 
-    public FillEmptySpace(Board board, Color color){
+    public FillEmptySpace(Board board, Pixmap pixmap){
         this.inMap = board.inMap;
         this.citiesBoolean = board.citiesBoolean;
         emptySpace = new ArrayList<Vector2>();
@@ -28,49 +29,54 @@ public class FillEmptySpace {
 
         addEmptySpaceToList();
 
-        fillEmptySpaceOnMap(color);
+        fillEmptySpaceOnMap(pixmap);
     }
 
-    private void fillEmptySpaceOnMap(Color color){
+    private void fillEmptySpaceOnMap(Pixmap pixmap){
 
         Random random = new Random();
         int rand;
 
         while(!isEmpty()){
             rand = random.nextInt(emptySpace.size());
-            addNewCity(emptySpace.get(rand), randomColor(random, color));
+            addNewCity(emptySpace.get(rand), randomColor(random, pixmap));
             //updateEmptySpace();
             emptySpace.clear();
             addEmptySpaceToList();
         }
     }
 
-    private Color randomColor(Random random, Color color){
+    private Pixmap randomColor(Random random, Pixmap pixmap){
 
         int a = random.nextInt(5);
         switch (a){
             case 0:
-                color = Color.BLACK;
+                //color = Color.BLACK;
+                pixmap = PixMaps.pixMapTwo;
                 break;
             case 1:
-                color = Color.SKY;
+                //color = Color.SKY;
+                pixmap = PixMaps.pixMapThree;
                 break;
             case 2:
-                color = Color.BROWN;
+                //color = Color.BROWN;
+                pixmap = PixMaps.pixMapFour;
                 break;
             case 3:
-                color = Color.CORAL;
+                //color = Color.CORAL;
+                pixmap = PixMaps.pixMapFive;
                 break;
             case 4:
-                color = Color.GOLDENROD;
+                //color = Color.GOLDENROD;
+                pixmap = PixMaps.pixMapSix;
                 break;
         }
-        return color;
+        return pixmap;
     }
 
-    private void addNewCity(Vector2 point, Color color){
+    private void addNewCity(Vector2 point, Pixmap pixmap){
 
-        City newCity = new City(5, "aaa", board, color);
+        City newCity = new City(5, "aaa", board, pixmap);
         board.cities.add(newCity);
     }
 

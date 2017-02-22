@@ -39,13 +39,13 @@ public class Cell {
 
     List<Cell> neighbours;
 
-    public Cell(float x, float y, float size, Color color){
+    public Cell(float x, float y, float size, Pixmap pixmap){
         this.x = x;
         this.y = y;
         this.size = size;
         setRealX();
         setRealY();
-        setTextureHexagon(color);
+        setTextureHexagon(pixmap);
         setShape(size);
         neighbours = new ArrayList<Cell>();
     }
@@ -69,60 +69,33 @@ public class Cell {
     }
 
     private Cell topNeighbour(){
-        Cell top = new Cell(x, y - 2, size, Color.GREEN);
+        Cell top = new Cell(x, y - 2, size, PixMaps.pixMapOne);
         return top;
     }
 
     private Cell topLeftNeighbour(){
-        Cell topLeft = new Cell(x - y%2, y - 1, size, Color.GREEN);
+        Cell topLeft = new Cell(x - y%2, y - 1, size, PixMaps.pixMapOne);
         return topLeft;
     }
 
     private Cell topRightNeighbour(){
-        Cell topRight = new Cell(x + 1 - y%2, y - 1, size, Color.GREEN);
+        Cell topRight = new Cell(x + 1 - y%2, y - 1, size, PixMaps.pixMapOne);
         return topRight;
     }
 
     private Cell bottomNeighbour(){
-        Cell bottom = new Cell(x, y + 2, size, Color.GREEN);
+        Cell bottom = new Cell(x, y + 2, size, PixMaps.pixMapOne);
         return bottom;
     }
 
     private Cell bottomLeftNeighbour(){
-        Cell bottomLeft = new Cell(x - y%2, y + 1, size, Color.GREEN);
+        Cell bottomLeft = new Cell(x - y%2, y + 1, size, PixMaps.pixMapOne);
         return bottomLeft;
     }
 
     private Cell bottomRightNeighbour(){
-        Cell bottomRight = new Cell(x + 1 - y%2, y + 1, size, Color.GREEN);
+        Cell bottomRight = new Cell(x + 1 - y%2, y + 1, size, PixMaps.pixMapOne);
         return bottomRight;
-    }
-
-    @Deprecated
-    private void findNeighbours(int width, int height){
-        Cell newNeighbour = topNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
-
-        newNeighbour = topLeftNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
-
-        newNeighbour = topRightNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
-
-        newNeighbour = bottomNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
-
-        newNeighbour = bottomLeftNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
-
-        newNeighbour = bottomRightNeighbour();
-        if(validate(newNeighbour, width, height))
-            neighbours.add(newNeighbour);
     }
 
     public void findNeighbours(Board board){
@@ -151,10 +124,13 @@ public class Cell {
             neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
     } // ta funkcja ustawia wskaźniki na sąsiadów zamiast tworzyć nowe obiekty
 
-    public void setTextureHexagon(Color textureColor){ // kolory typu BLACK, RED...
+    public void setTextureHexagon(Pixmap pixMap){ // kolory typu BLACK, RED...
+
+        /*
         Pixmap pixMap = new Pixmap(1,1, Pixmap.Format.RGBA8888);
         pixMap.setColor(textureColor);
         pixMap.fill();
+        */
         textureHexagon = new Texture(pixMap);
     } // ta funkcja powinna być wywoływana w klasie miasto, aby ustawić dobry kolor...
     // chodzi o to do jakiego państwa należy
