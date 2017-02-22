@@ -26,6 +26,8 @@ public class Board {
     int ySize;
     float a;
 
+    int ABC = 0;
+
     ShapeOfCity shape;
 
 
@@ -45,12 +47,32 @@ public class Board {
         a = Gdx.graphics.getWidth() / k;
         cities = new ArrayList<City>();
         createShapeOfBoard();
-        createMap();
+        //createMap();
         createBoard();
+
+       /* Pixmap pixmap = PixMaps.pixMapOne;
+         Random rand = new Random();
+
+        int i = rand.nextInt(3);
+
+        switch (i%3){
+            case 0:
+                pixmap = PixMaps.pixMapTwo;
+                break;
+            case 1:
+                pixmap = PixMaps.pixMapThree;
+                break;
+            case 2:
+                pixmap = PixMaps.pixMapFour;
+                break;
+        }
+
+        cells[xSize/2][ySize/2] = new Cell(xSize/2, ySize/2, a, pixmap);*/
     }
 
 
     private void createBoard(){
+
 
         Pixmap pixmap = PixMaps.pixMapOne;
 
@@ -81,7 +103,8 @@ public class Board {
 
         for(int i = 0; i < xSize; i++){
             for(int j = 0; j < ySize; j++){
-                cells[i][j] = new Cell(i, j, a, pixmap);
+                if(!inMap[i][j])
+                    cells[i][j] = new Cell(i, j, a, pixmap);
             }
         }
     }
@@ -92,9 +115,10 @@ public class Board {
 
 
     public void drawBoard(){
+
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
-                //if(inMap[j][i])
+                if(citiesBoolean[j][i])
                     cells[j][i].drawHexagon();
             }
         }
