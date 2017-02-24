@@ -20,7 +20,6 @@ public class Button {
     }
 
     public void update(SpriteBatch batch) {
-        //checkIfClicked(input_x, input_y);
         skin.draw(batch);
     }
 

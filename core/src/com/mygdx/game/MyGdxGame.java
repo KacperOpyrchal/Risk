@@ -57,11 +57,13 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	public void resize(int width, int height) {}
 	@Override
 	public void render() {
-		Gdx.gl.glClearColor( 1, 1, 1, 1);
+		Gdx.gl.glClearColor( 204.0f/255.0f, 204.0f/255.0f, 1, 1);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		board.drawBoard();
+		if(menu.isShowBoard()) {
+			board.drawBoard();
+		}
 
 		batch.begin();
 		menu.renderMenu(batch);
@@ -100,6 +102,8 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
 		Gdx.app.log("KAP", "I:O x = " + screenX + " y = " + screenY);
+
+		menu.checkOnClick(screenX, Gdx.graphics.getHeight() - screenY);
 
 		if(menu.renderBtn.checkIfClicked((float) screenX, Gdx.graphics.getHeight() - screenY)){
 			Gdx.app.log("KAP", "HEJ");
