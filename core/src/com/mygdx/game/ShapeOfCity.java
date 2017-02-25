@@ -24,10 +24,14 @@ public class ShapeOfCity {
     List<Cell> cellsCity;
     boolean[][] inMap;
 
+    Board board;
+
     public ShapeOfCity(Board board, List<Cell> cellsCity, Pixmap pixmap, int radius){
         this.xSize = board.xSize;
         this.ySize = board.ySize;
         this.a = board.a;
+
+        this.board = board;
 
         this.cells = board.cells;
         this.citiesBoolean = board.citiesBoolean;
@@ -93,17 +97,6 @@ public class ShapeOfCity {
         }
     }
 
-    private boolean inFigure(Vector2 Center, Vector2[] vertices, Vector2 D, int n){
-        boolean in = true; // czy jest w figurze
-
-        for(int i = 0, j = 1; i < n; i++, j++){
-            j = j % n;
-            in = linearInequation(vertices[i], vertices[j], Center, D);
-            if(!in) break;
-        }
-        return in;
-    }
-
     private int xLeftLimit(float x, int radius){ // funkcja zwraca pierwszego x ktory zawiera się w xCenter - Radius
         int xLim = (int)(x) - radius;
         if(xLim < 0) xLim = 0;
@@ -132,10 +125,6 @@ public class ShapeOfCity {
         return yLim;
     }
 
-    private boolean isOccupied(int x, int y){ // wiem że to można zrobić w ifie !citiesBoolean[x][y] ale tak będzie czytelniej
-        return citiesBoolean[x][y]; // tak chyba będzie jeszcze czytelniej :P ~Kacper
-    }
-
     private void createCity(Vector2 Center, int n, int radiusRand, Pixmap pixmap){
 
         Vector2[] vertices = new Vector2[n];
@@ -160,8 +149,8 @@ public class ShapeOfCity {
 
                 D.x = i; D.y = j;
 
-                if((!citiesBoolean[i][j] && inMap[i][j]) && ((distance(D,Center,2)) || (inFigureV2(linearIneq, n, D)))){
-                    cells[i][j] = new Cell(i, j, a, pixmap);
+                if((!citiesBoolean[i][j] && inMap[i][j]) && ((distance(D,Center,2)) || (inFigure(linearIneq, n, D)))){
+                    cells[i][j] = new Cell(i, j, a, pixmap, board);
                     citiesBoolean[i][j] = true;
                     cellsCity.add(cells[i][j]);
                 }
@@ -190,7 +179,7 @@ public class ShapeOfCity {
         }
     }
 
-    private boolean inFigureV2(float[][] linearIneq, int n, Vector2 Point){
+    private boolean inFigure(float[][] linearIneq, int n, Vector2 Point){
         float resultForPoint;
 
         for(int i = 0; i < n; i++){
@@ -205,44 +194,18 @@ public class ShapeOfCity {
                     return  false;
             }
         }
-
         return true;
     }
-
-
-
-    private boolean linearInequation(Vector2 A, Vector2 B, Vector2 Center, Vector2 D){
-        if(A.x - B.x == 0) A.x += 0.1;
-        float a = (A.y - B.y)/(A.x - B.x);
-        float b = A.y - a * A.x;
-
-        float xCenterResult = a * Center.x + b;
-        float xDResult = a * D.x + b;
-
-        if(xCenterResult <= Center.y){
-            if(xDResult <= D.y)
-                return true;
-        } else {
-            if(xDResult >= D.y)
-                return true;
-        }
-        return false;
-    }
-
-
 
     private void createMap(Vector2 Center, int n, int radiusRand){
 
         Vector2[] vertices = new Vector2[n];
-
-        Random random = new Random();
 
         float[][] linearIneq = new float[n][3];
 
         int radius = xSize / 4;
         int minRadius = 2 * xSize / 5;
         createRandomFigure(Center, radius, n, vertices, minRadius);
-
 
         linearInq(vertices, linearIneq, n, Center);
 
@@ -253,7 +216,7 @@ public class ShapeOfCity {
 
                 D.x = i; D.y = j;
 
-                if(distance(D, Center, radius) || inFigureV2(linearIneq, n, D))
+                if(distance(D, Center, radius) || inFigure(linearIneq, n, D))
                     inMap[i][j] = true;
             }
         }

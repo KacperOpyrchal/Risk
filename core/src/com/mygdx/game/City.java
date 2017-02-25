@@ -10,6 +10,7 @@ import java.util.List;
  * Created by Kacper Opyrchal on 08.02.2017.
  * Improved by Marcin Holota on 17.02.2017.
  * Updated by Kacper Opyrchał on 17.02.2017
+ * Function findBorders has been added by Marcin Holota on 25.02.2017.
  */
 
 public class City {
@@ -25,13 +26,17 @@ public class City {
 
     private List<Cell> cells;
 
+    private Board board;
+
     public City(int army, String membership, Board board, Pixmap pixmap) {
         this.army = army;
         this.membership = membership;
 
         this.cells = new ArrayList<Cell>();
 
-        shape = new ShapeOfCity(board, this.cells, pixmap, 5);
+        this.board = board;
+
+        shape = new ShapeOfCity(board, this.cells, pixmap, 4);
 
     }
 
@@ -46,6 +51,42 @@ public class City {
         this.cells = new ArrayList<Cell>();
 
         //shape = new ShapeOfCity(xSize,ySize,cells,citiesBoolean,this.cells,color,a,10);
+
+    }
+
+    public void findBorders(){ // powinna działać ta funkcja, ale będzie trzeba to jeszcze sprawdzić
+
+        for(int i = 0; i < cells.size(); i++){
+
+            Cell cell1 = cells.get(i);
+            cell1.findNeighbours();
+
+            for(int j1 = 0, j2 = 0; j1 < 6 || j2 < cell1.neighbours.size(); j1++){
+
+                boolean border = true;
+
+                if(cell1.neighboursBoolean[j1]){
+
+                    Cell neighbour = cell1.neighbours.get(j2);
+
+                    for(int k = 0; k < cells.size(); k++){
+                        Cell cell2 = cells.get(k);
+
+                        if(cell2 == neighbour){
+                            border = false;
+                            break;
+                        }
+
+                    }
+
+                    cell1.borders[j1] = border;
+
+                    j2++;
+                }
+
+            }
+
+        }
 
     }
 

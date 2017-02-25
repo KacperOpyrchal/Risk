@@ -14,6 +14,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.BodyDef;
 import com.badlogic.gdx.physics.box2d.FixtureDef;
 import com.badlogic.gdx.physics.box2d.PolygonShape;
+//import com.sun.xml.internal.ws.client.sei.ResponseBuilder;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +25,7 @@ import java.util.List;
  * Updated by Kacper Opyrchal on 10.02.2017
  *  1) Draw method has been added
  *  2) Finding method has been improved
+ * Constructor and function findNeighbours have been changed by Marcin Holota on 25.02.2017.
  */
 
 public class Cell {
@@ -34,12 +36,16 @@ public class Cell {
     float realY;
     float size;
     Texture textureHexagon;
-    PolygonSprite hexagon;
     PolygonRegion polygonRegion;
 
-    List<Cell> neighbours;
+    boolean[] borders;
 
-    public Cell(float x, float y, float size, Pixmap pixmap){
+    Board board;
+
+    List<Cell> neighbours;
+    boolean[] neighboursBoolean;
+
+    public Cell(float x, float y, float size, Pixmap pixmap, Board board){
         this.x = x;
         this.y = y;
         this.size = size;
@@ -47,7 +53,13 @@ public class Cell {
         setRealY();
         setTextureHexagon(pixmap);
         setShape(size);
+
+        this.board = board;
+
         neighbours = new ArrayList<Cell>();
+
+        borders = new boolean[6];
+        neighboursBoolean = new boolean[6]; // true jak jest sąsiad
     }
 
     private void setRealX(){
@@ -61,79 +73,119 @@ public class Cell {
 
     private boolean validate(Cell neighbour, int width, int height){
         boolean correct = true;
-        if(neighbour.x < 0 || neighbour.x >= width)
+
+        if(neighbour == this) // warunek który jest opisany w ! topNeighbour() !
             correct = false;
-        if(neighbour.y < 0 || neighbour.y >= height)
+
+        else if(!board.inMap[(int)neighbour.x][(int)neighbour.y])
             correct = false;
+
+        else if(neighbour.x < 0 || neighbour.x >= width)
+            correct = false;
+
+        else if(neighbour.y < 0 || neighbour.y >= height)
+            correct = false;
+
         return correct;
     }
 
     private Cell topNeighbour(){
-        Cell top = new Cell(x, y - 2, size, PixMaps.pixMapOne);
+        Cell top = this; // to na wypadek jakby miałbyć nullptr
+        // w validate jest warunek do obsługi tego przypadku
+
+        if(y - 2 >= 0)
+            top = board.cells[(int)x][(int)y-2];
+
         return top;
     }
 
     private Cell topLeftNeighbour(){
-        Cell topLeft = new Cell(x - y%2, y - 1, size, PixMaps.pixMapOne);
+        Cell topLeft = this;
+
+        if(x - y%2 >= 0 && y - 1 >= 0)
+            topLeft = board.cells[(int)x-(int)y%2][(int)y-1];
+
         return topLeft;
     }
 
     private Cell topRightNeighbour(){
-        Cell topRight = new Cell(x + 1 - y%2, y - 1, size, PixMaps.pixMapOne);
+        Cell topRight = this;
+
+        if(x + 1 - y%2 < board.xSize && y - 1 >= 0)
+            topRight = board.cells[(int)x+1-(int)y%2][(int)y-1];
+
         return topRight;
     }
 
     private Cell bottomNeighbour(){
-        Cell bottom = new Cell(x, y + 2, size, PixMaps.pixMapOne);
+        Cell bottom = this;
+
+        if(y + 2 < board.ySize)
+            bottom = board.cells[(int)x][(int)y+2];
+
         return bottom;
     }
 
     private Cell bottomLeftNeighbour(){
-        Cell bottomLeft = new Cell(x - y%2, y + 1, size, PixMaps.pixMapOne);
+        Cell bottomLeft = this;
+
+        if(x - y%2 >= 0 && y + 1 < board.ySize)
+            bottomLeft = board.cells[(int)x-(int)y%2][(int)y+1];
+
         return bottomLeft;
     }
 
     private Cell bottomRightNeighbour(){
-        Cell bottomRight = new Cell(x + 1 - y%2, y + 1, size, PixMaps.pixMapOne);
+        Cell bottomRight = this;
+
+        if(x + 1 - y%2 < board.xSize && y + 1 <board.ySize)
+            bottomRight = board.cells[(int)x+1-(int)y%2][(int)y+1];
+
         return bottomRight;
     }
 
-    public void findNeighbours(Board board){
+    public void findNeighbours(){
         Cell newNeighbour = topNeighbour();
-        if(validate(newNeighbour, board.getX(), board.getY()))
+        if(validate(newNeighbour, board.getX(), board.getY())){
             neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
-
-        newNeighbour = topLeftNeighbour();
-        if(validate(newNeighbour, board.getX(), board.getY()))
-            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
+            neighboursBoolean[0] = true;
+        }
 
         newNeighbour = topRightNeighbour();
-        if(validate(newNeighbour,  board.getX(), board.getY()))
+        if(validate(newNeighbour,  board.getX(), board.getY())){
             neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
-
-        newNeighbour = bottomNeighbour();
-        if(validate(newNeighbour,  board.getX(), board.getY()))
-            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
-
-        newNeighbour = bottomLeftNeighbour();
-        if(validate(newNeighbour,  board.getX(), board.getY()))
-            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
+            neighboursBoolean[1] = true;
+        }
 
         newNeighbour = bottomRightNeighbour();
-        if(validate(newNeighbour,  board.getX(), board.getY()))
+        if(validate(newNeighbour,  board.getX(), board.getY())){
             neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
+            neighboursBoolean[2] = true;
+        }
+
+        newNeighbour = bottomNeighbour();
+        if(validate(newNeighbour,  board.getX(), board.getY())){
+            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
+            neighboursBoolean[3] = true;
+        }
+
+        newNeighbour = bottomLeftNeighbour();
+        if(validate(newNeighbour,  board.getX(), board.getY())){
+            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
+            neighboursBoolean[4] = true;
+        }
+
+        newNeighbour = topLeftNeighbour();
+        if(validate(newNeighbour, board.getX(), board.getY())){
+            neighbours.add(board.cells[(int)newNeighbour.x][(int)newNeighbour.y]);
+            neighboursBoolean[5] = true;
+        }
+
     } // ta funkcja ustawia wskaźniki na sąsiadów zamiast tworzyć nowe obiekty
 
-    public void setTextureHexagon(Pixmap pixMap){ // kolory typu BLACK, RED...
-
-        /*
-        Pixmap pixMap = new Pixmap(1,1, Pixmap.Format.RGBA8888);
-        pixMap.setColor(textureColor);
-        pixMap.fill();
-        */
+    public void setTextureHexagon(Pixmap pixMap){
         textureHexagon = new Texture(pixMap);
-    } // ta funkcja powinna być wywoływana w klasie miasto, aby ustawić dobry kolor...
-    // chodzi o to do jakiego państwa należy
+    }
 
     private void setShape(float size){
         float sqrt3 = (float)Math.sqrt(3)/2;
@@ -154,7 +206,6 @@ public class Cell {
         }; // nie pytajcie czemu to jest... musi być, ale jest do niczego nie potrzebne...
 
         polygonRegion = new PolygonRegion(new TextureRegion(textureHexagon), vertices, triangles);
-
     }
 
 

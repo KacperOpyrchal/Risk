@@ -27,8 +27,6 @@ public class Board {
     int ySize;
     float a;
 
-    int ABC = 0;
-
     ShapeOfCity shape;
 
 
@@ -50,25 +48,6 @@ public class Board {
         createShapeOfBoard();
         createMap();
         createBoard();
-
-       /* Pixmap pixmap = PixMaps.pixMapOne;
-         Random rand = new Random();
-
-        int i = rand.nextInt(3);
-
-        switch (i%3){
-            case 0:
-                pixmap = PixMaps.pixMapTwo;
-                break;
-            case 1:
-                pixmap = PixMaps.pixMapThree;
-                break;
-            case 2:
-                pixmap = PixMaps.pixMapFour;
-                break;
-        }
-
-        cells[xSize/2][ySize/2] = new Cell(xSize/2, ySize/2, a, pixmap);*/
     }
 
 
@@ -97,6 +76,8 @@ public class Board {
         pixmap = PixMaps.pixMapOne;
         FillEmptySpace fill = new FillEmptySpace(this, pixmap);
 
+        cities.get(0).findBorders(); // dziwne, ale nie crashuje!!!!!!!!!!!!!!!
+
     }
 
     private void createMap(){
@@ -105,7 +86,7 @@ public class Board {
         for(int i = 0; i < xSize; i++){
             for(int j = 0; j < ySize; j++){
                 if(!inMap[i][j])
-                    cells[i][j] = new Cell(i, j, a, pixmap);
+                    cells[i][j] = new Cell(i, j, a, pixmap, this);
             }
         }
     }
@@ -121,11 +102,9 @@ public class Board {
 
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
-                //if(citiesBoolean[j][i]){
                     polygonSpriteBatch.begin();
                     polygonSpriteBatch.draw(cells[j][i].polygonRegion, cells[j][i].realX, cells[j][i].realY);
                     polygonSpriteBatch.end();
-                //}
             }
         }
     }
