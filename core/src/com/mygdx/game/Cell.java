@@ -89,7 +89,7 @@ public class Cell {
         return correct;
     }
 
-    private Cell topNeighbour(){
+    public Cell topNeighbour(){
         Cell top = this; // to na wypadek jakby miałbyć nullptr
         // w validate jest warunek do obsługi tego przypadku
 
@@ -99,7 +99,7 @@ public class Cell {
         return top;
     }
 
-    private Cell topLeftNeighbour(){
+    public Cell topLeftNeighbour(){
         Cell topLeft = this;
 
         if(x - y%2 >= 0 && y - 1 >= 0)
@@ -108,7 +108,7 @@ public class Cell {
         return topLeft;
     }
 
-    private Cell topRightNeighbour(){
+    public Cell topRightNeighbour(){
         Cell topRight = this;
 
         if(x + 1 - y%2 < board.xSize && y - 1 >= 0)
@@ -117,7 +117,7 @@ public class Cell {
         return topRight;
     }
 
-    private Cell bottomNeighbour(){
+    public Cell bottomNeighbour(){
         Cell bottom = this;
 
         if(y + 2 < board.ySize)
@@ -126,7 +126,7 @@ public class Cell {
         return bottom;
     }
 
-    private Cell bottomLeftNeighbour(){
+    public Cell bottomLeftNeighbour(){
         Cell bottomLeft = this;
 
         if(x - y%2 >= 0 && y + 1 < board.ySize)
@@ -135,7 +135,7 @@ public class Cell {
         return bottomLeft;
     }
 
-    private Cell bottomRightNeighbour(){
+    public Cell bottomRightNeighbour(){
         Cell bottomRight = this;
 
         if(x + 1 - y%2 < board.xSize && y + 1 <board.ySize)

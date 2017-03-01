@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.World;
@@ -95,7 +96,6 @@ public class Board {
         shape = new ShapeOfCity(this, 0);
     }
 
-
     public void drawBoard(){
 
         PolygonSpriteBatch polygonSpriteBatch = new PolygonSpriteBatch(6);
@@ -107,6 +107,16 @@ public class Board {
                     polygonSpriteBatch.end();
             }
         }
+
+        ShapeRenderer shapeRenderer = new ShapeRenderer();
+        shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+        shapeRenderer.setColor(Color.BLACK);
+
+        for(City city : cities){
+            city.drawBorder(shapeRenderer);
+        }
+
+        shapeRenderer.end();
     }
 
     public int getX(){

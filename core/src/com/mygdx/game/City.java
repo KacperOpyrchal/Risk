@@ -2,6 +2,8 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
+import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +54,105 @@ public class City {
 
         //shape = new ShapeOfCity(xSize,ySize,cells,citiesBoolean,this.cells,color,a,10);
 
+    }
+
+    public void drawBorder(ShapeRenderer shapeRenderer){
+
+        float x1, y1;
+        float x2, y2;
+
+        for(Cell cell : cells){
+
+            Cell neighbour = cell.topNeighbour();
+
+            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
+
+                x1 = cell.realX - cell.size/2;
+                y1 = cell.realY + (cell.size * (float) Math.sqrt(3))/2;
+
+                x2 = cell.realX + cell.size/2;
+                y2 = cell.realY + (cell.size * (float) Math.sqrt(3))/2;
+
+                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+            }
+
+            neighbour = cell.topLeftNeighbour();
+
+            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
+
+                x1 = cell.realX - cell.size/2;
+                y1 = cell.realY + (cell.size * (float) Math.sqrt(3))/2;
+
+                x2 = cell.realX - cell.size;
+                y2 = cell.realY;
+
+                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+            }
+
+            neighbour = cell.topRightNeighbour();
+
+            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
+
+                x1 = cell.realX + cell.size/2;
+                y1 = cell.realY + (cell.size * (float) Math.sqrt(3))/2;
+
+                x2 = cell.realX + cell.size;
+                y2 = cell.realY;
+
+                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+            }
+
+            neighbour = cell.bottomNeighbour();
+
+            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
+
+                x1 = cell.realX - cell.size/2;
+                y1 = cell.realY - (cell.size * (float) Math.sqrt(3))/2;
+
+                x2 = cell.realX + cell.size/2;
+                y2 = cell.realY - (cell.size * (float) Math.sqrt(3))/2;
+
+                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+            }
+
+            neighbour = cell.bottomLeftNeighbour();
+
+            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
+
+                x1 = cell.realX - cell.size/2;
+                y1 = cell.realY - (cell.size * (float) Math.sqrt(3))/2;
+
+                x2 = cell.realX - cell.size;
+                y2 = cell.realY;
+
+                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+            }
+
+            neighbour = cell.bottomRightNeighbour();
+
+            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
+
+                x1 = cell.realX + cell.size/2;
+                y1 = cell.realY - (cell.size * (float) Math.sqrt(3))/2;
+
+                x2 = cell.realX + cell.size;
+                y2 = cell.realY;
+
+                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+            }
+
+        }
+
+
+    }
+
+    public boolean isValidNeigbour(float x, float y){
+        for(Cell cell : cells){
+            if(cell.x == x && cell.y == y){
+                return false;
+            }
+        }
+        return true;
     }
 
     public void findBorders(){ // powinna działać ta funkcja, ale będzie trzeba to jeszcze sprawdzić
