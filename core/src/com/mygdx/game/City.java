@@ -56,45 +56,29 @@ public class City {
 
     }
 
-    public void drawBorder(ShapeRenderer shapeRenderer){
+    public void drawBorder(ShapeRenderer shapeRenderer) {
 
         float x1, y1;
         float x2, y2;
 
-        for(Cell cell : cells){
+        for (Cell cell : cells) {
 
-            Cell neighbour = cell.topNeighbour();
+            //Cell neighbour = cell.topNeighbour();
 
-            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
+            if (cell.borders[0]) {
 
-                x1 = cell.realX - cell.size/2;
-                y1 = cell.realY + (cell.size * (float) Math.sqrt(3))/2;
+                x1 = cell.realX - cell.size / 2;
+                y1 = cell.realY + (cell.size * (float) Math.sqrt(3)) / 2;
 
-                x2 = cell.realX + cell.size/2;
-                y2 = cell.realY + (cell.size * (float) Math.sqrt(3))/2;
-
-                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
-            }
-
-            neighbour = cell.topLeftNeighbour();
-
-            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
-
-                x1 = cell.realX - cell.size/2;
-                y1 = cell.realY + (cell.size * (float) Math.sqrt(3))/2;
-
-                x2 = cell.realX - cell.size;
-                y2 = cell.realY;
+                x2 = cell.realX + cell.size / 2;
+                y2 = cell.realY + (cell.size * (float) Math.sqrt(3)) / 2;
 
                 shapeRenderer.rectLine(x1, y1, x2, y2, 4);
             }
 
-            neighbour = cell.topRightNeighbour();
-
-            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
-
-                x1 = cell.realX + cell.size/2;
-                y1 = cell.realY + (cell.size * (float) Math.sqrt(3))/2;
+            if (cell.borders[1]) {
+                x1 = cell.realX + cell.size / 2;
+                y1 = cell.realY + (cell.size * (float) Math.sqrt(3)) / 2;
 
                 x2 = cell.realX + cell.size;
                 y2 = cell.realY;
@@ -102,38 +86,10 @@ public class City {
                 shapeRenderer.rectLine(x1, y1, x2, y2, 4);
             }
 
-            neighbour = cell.bottomNeighbour();
 
-            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
-
-                x1 = cell.realX - cell.size/2;
-                y1 = cell.realY - (cell.size * (float) Math.sqrt(3))/2;
-
-                x2 = cell.realX + cell.size/2;
-                y2 = cell.realY - (cell.size * (float) Math.sqrt(3))/2;
-
-                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
-            }
-
-            neighbour = cell.bottomLeftNeighbour();
-
-            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
-
-                x1 = cell.realX - cell.size/2;
-                y1 = cell.realY - (cell.size * (float) Math.sqrt(3))/2;
-
-                x2 = cell.realX - cell.size;
-                y2 = cell.realY;
-
-                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
-            }
-
-            neighbour = cell.bottomRightNeighbour();
-
-            if(isValidNeigbour(neighbour.x, neighbour.y) && (neighbour.x != cell.x || neighbour.y != cell.y)){
-
-                x1 = cell.realX + cell.size/2;
-                y1 = cell.realY - (cell.size * (float) Math.sqrt(3))/2;
+            if (cell.borders[2]) {
+                x1 = cell.realX + cell.size / 2;
+                y1 = cell.realY - (cell.size * (float) Math.sqrt(3)) / 2;
 
                 x2 = cell.realX + cell.size;
                 y2 = cell.realY;//
@@ -141,39 +97,61 @@ public class City {
                 shapeRenderer.rectLine(x1, y1, x2, y2, 4);
             }
 
-        }
+            if (cell.borders[3]) {
+                x1 = cell.realX - cell.size / 2;
+                y1 = cell.realY - (cell.size * (float) Math.sqrt(3)) / 2;
 
+                x2 = cell.realX + cell.size / 2;
+                y2 = cell.realY - (cell.size * (float) Math.sqrt(3)) / 2;
 
-    }
-
-    public boolean isValidNeigbour(float x, float y){
-        for(Cell cell : cells){
-            if(cell.x == x && cell.y == y){
-                return false;
+                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
             }
+
+            if (cell.borders[4]) {
+                x1 = cell.realX - cell.size / 2;
+                y1 = cell.realY - (cell.size * (float) Math.sqrt(3)) / 2;
+
+                x2 = cell.realX - cell.size;
+                y2 = cell.realY;
+
+                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+            }
+
+            if (cell.borders[5]) {
+                x1 = cell.realX - cell.size / 2;
+                y1 = cell.realY + (cell.size * (float) Math.sqrt(3)) / 2;
+
+                x2 = cell.realX - cell.size;
+                y2 = cell.realY;
+
+                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+            }
+
+
         }
-        return true;
+
+
     }
 
-    public void findBorders(){ // powinna działać ta funkcja, ale będzie trzeba to jeszcze sprawdzić
+    public void findBorders() { // powinna działać ta funkcja, ale będzie trzeba to jeszcze sprawdzić
 
-        for(int i = 0; i < cells.size(); i++){
+        for (int i = 0; i < cells.size(); i++) {
 
             Cell cell1 = cells.get(i);
             cell1.findNeighbours();
 
-            for(int j1 = 0, j2 = 0; j1 < 6 || j2 < cell1.neighbours.size(); j1++){
+            for (int j1 = 0, j2 = 0; j1 < 6 || j2 < cell1.neighbours.size(); j1++) {
 
                 boolean border = true;
 
-                if(cell1.neighboursBoolean[j1]){
+                if (cell1.neighboursBoolean[j1]) {
 
                     Cell neighbour = cell1.neighbours.get(j2);
 
-                    for(int k = 0; k < cells.size(); k++){
+                    for (int k = 0; k < cells.size(); k++) {
                         Cell cell2 = cells.get(k);
 
-                        if(cell2 == neighbour){
+                        if (cell2 == neighbour) {
                             border = false;
                             break;
                         }
