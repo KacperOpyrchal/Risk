@@ -136,7 +136,7 @@ public class City {
                 y1 = cell.realY - (cell.size * (float) Math.sqrt(3))/2;
 
                 x2 = cell.realX + cell.size;
-                y2 = cell.realY;
+                y2 = cell.realY;//
 
                 shapeRenderer.rectLine(x1, y1, x2, y2, 4);
             }
