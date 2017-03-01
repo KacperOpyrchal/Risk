@@ -55,7 +55,10 @@ public class Board {
     private void createBoard(){
 
 
-        Pixmap pixmap = PixMaps.pixMapOne;
+        Pixmap pixmap = PixMaps.pixMapFive;
+
+        City newCity = new City(5, "aaaa", this, pixmap);
+        cities.add(newCity);
 
         for(int i = 0; i < 15; i++){
             switch (i%3){
@@ -70,7 +73,7 @@ public class Board {
                     break;
             }
 
-            City newCity = new City(5, "aaaa", this, pixmap);
+            newCity = new City(5, "aaaa", this, pixmap);
             cities.add(newCity);
 
         }
