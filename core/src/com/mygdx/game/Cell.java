@@ -72,21 +72,21 @@ public class Cell {
     }
 
     private boolean validate(Cell neighbour, int width, int height){
-        boolean correct = true;
+        //boolean correct = true;
 
         if(neighbour == this) // warunek który jest opisany w ! topNeighbour() !
-            correct = false;
+            return false;
 
-        else if(!board.inMap[(int)neighbour.x][(int)neighbour.y])
-            correct = false;
+        if(!board.inMap[(int)neighbour.x][(int)neighbour.y])
+            return false;
 
-        else if(neighbour.x < 0 || neighbour.x >= width)
-            correct = false;
+        if(neighbour.x < 0 || neighbour.x >= width)
+            return false;
 
-        else if(neighbour.y < 0 || neighbour.y >= height)
-            correct = false;
+        if(neighbour.y < 0 || neighbour.y >= height)
+            return false;
 
-        return correct;
+        return true;
     }
 
     public Cell topNeighbour(){

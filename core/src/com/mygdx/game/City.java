@@ -133,6 +133,59 @@ public class City {
 
     }
 
+    public void findBorders2() {
+
+        for (Cell cell : cells) {
+
+            Cell topCell = cell.topNeighbour();
+            Cell topLeftCell = cell.topLeftNeighbour();
+            Cell topRightCell = cell.topRightNeighbour();
+            Cell bottomCell = cell.bottomNeighbour();
+            Cell bottomLeftCell = cell.bottomLeftNeighbour();
+            Cell bottomRightCell = cell.bottomRightNeighbour();
+
+
+            if(checkCell(topCell)){
+                cell.borders[0] = true;
+            }
+
+            if(checkCell(topRightCell)){
+                cell.borders[1] = true;
+            }
+
+            if(checkCell(bottomRightCell)){
+                cell.borders[2] = true;
+            }
+
+            if(checkCell(bottomCell)){
+                cell.borders[3] = true;
+            }
+
+            if(checkCell(bottomLeftCell)){
+                cell.borders[4] = true;
+            }
+
+            if(checkCell(topLeftCell)){
+                cell.borders[5] = true;
+            }
+
+
+        }
+
+    }
+
+    public boolean checkCell(Cell check){
+
+        for (Cell cell : cells){
+
+            if(cell.x == check.x && cell.y == check.y){
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     public void findBorders() { // powinna działać ta funkcja, ale będzie trzeba to jeszcze sprawdzić
 
         for (int i = 0; i < cells.size(); i++) {
