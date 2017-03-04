@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -133,7 +134,13 @@ public class City {
 
     }
 
-    public void findBorders2() {
+    public void findBorders() {
+
+
+        /*
+        for (Cell cell : cells) {
+            Gdx.app.log("Cells", "(" + cell.x + ", " + cell.y + ")");
+        }*/
 
         for (Cell cell : cells) {
 
@@ -144,41 +151,46 @@ public class City {
             Cell bottomLeftCell = cell.bottomLeftNeighbour();
             Cell bottomRightCell = cell.bottomRightNeighbour();
 
+            Gdx.app.log("Cell", "(" + cell.x + ", " + cell.y + ")");
 
-            if(checkCell(topCell)){
+            if (checkCell(topCell)) {
                 cell.borders[0] = true;
             }
 
-            if(checkCell(topRightCell)){
+            if (checkCell(topRightCell)) {
                 cell.borders[1] = true;
             }
 
-            if(checkCell(bottomRightCell)){
+            if (checkCell(bottomRightCell)) {
                 cell.borders[2] = true;
             }
 
-            if(checkCell(bottomCell)){
+            if (checkCell(bottomCell)) {
                 cell.borders[3] = true;
             }
 
-            if(checkCell(bottomLeftCell)){
+            if (checkCell(bottomLeftCell)) {
                 cell.borders[4] = true;
             }
 
-            if(checkCell(topLeftCell)){
+            if (checkCell(topLeftCell)) {
                 cell.borders[5] = true;
             }
+
+            Gdx.app.log("===", "======================================");
 
 
         }
 
     }
 
-    public boolean checkCell(Cell check){
+    public boolean checkCell(Cell check) {
 
-        for (Cell cell : cells){
+        Gdx.app.log("Neigh", "(" + check.x + ", " + check.y + ")");
 
-            if(cell.x == check.x && cell.y == check.y){
+        for (Cell cell : cells) {
+
+            if (cell.x == check.x && cell.y == check.y) {
                 return false;
             }
         }
@@ -186,7 +198,7 @@ public class City {
         return true;
     }
 
-    public void findBorders() { // powinna działać ta funkcja, ale będzie trzeba to jeszcze sprawdzić
+    public void findBorders2() { // powinna działać ta funkcja, ale będzie trzeba to jeszcze sprawdzić
 
         for (int i = 0; i < cells.size(); i++) {
 
