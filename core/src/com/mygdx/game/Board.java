@@ -55,7 +55,7 @@ public class Board {
     private void createBoard(){
 
 
-        Pixmap pixmap = PixMaps.pixMapFive;
+        Pixmap pixmap = PixMaps.pixMapOne;
 
         City newCity = new City(5, "aaaa", this, pixmap);
         cities.add(newCity);
@@ -80,12 +80,12 @@ public class Board {
         pixmap = PixMaps.pixMapOne;
         FillEmptySpace fill = new FillEmptySpace(this, pixmap);
 
-        cities.get(0).findBorders(); // dziwne, ale nie crashuje!!!!!!!!!!!!!!!
+        cities.get(0).findBorders2(); // dziwne, ale nie crashuje!!!!!!!!!!!!!!!
 
     }
 
     private void createMap(){
-        Pixmap pixmap = PixMaps.pixMapOne;
+        Pixmap pixmap = PixMaps.pixMapTwo;
 
         for(int i = 0; i < xSize; i++){
             for(int j = 0; j < ySize; j++){
@@ -93,6 +93,8 @@ public class Board {
                     cells[i][j] = new Cell(i, j, a, pixmap, this);
             }
         }
+        pixmap = PixMaps.pixMapOne;
+        cells[0][0] = new Cell(0,0,a,pixmap,this);
     }
 
     private void createShapeOfBoard(){

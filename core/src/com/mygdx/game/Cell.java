@@ -77,8 +77,8 @@ public class Cell {
         if(neighbour == this) // warunek który jest opisany w ! topNeighbour() !
             return false;
 
-        if(!board.inMap[(int)neighbour.x][(int)neighbour.y])
-            return false;
+        //if(!board.inMap[(int)neighbour.x][(int)neighbour.y])
+            //return false;
 
         if(neighbour.x < 0 || neighbour.x >= width)
             return false;
@@ -93,8 +93,8 @@ public class Cell {
         Cell top = this; // to na wypadek jakby miałbyć nullptr
         // w validate jest warunek do obsługi tego przypadku
 
-        if(y - 2 >= 0)
-            top = board.cells[(int)x][(int)y-2];
+        if(y + 2 < board.ySize)
+            top = board.cells[(int)x][(int)y+2]; //
 
         return top;
     }
@@ -102,8 +102,9 @@ public class Cell {
     public Cell topLeftNeighbour(){
         Cell topLeft = this;
 
-        if(x - y%2 >= 0 && y - 1 >= 0)
-            topLeft = board.cells[(int)x-(int)y%2][(int)y-1];
+
+        if(x - (y+1)%2 >= 0 && y + 1 < board.ySize)
+            topLeft = board.cells[(int)x-(int)(y+1)%2][(int)y+1]; //
 
         return topLeft;
     }
@@ -111,8 +112,8 @@ public class Cell {
     public Cell topRightNeighbour(){
         Cell topRight = this;
 
-        if(x + 1 - y%2 < board.xSize && y - 1 >= 0)
-            topRight = board.cells[(int)x+1-(int)y%2][(int)y-1];
+        if(x + 1 - (y+1)%2 < board.xSize && y + 1 <board.ySize)
+            topRight = board.cells[(int)x+1-(int)(y+1)%2][(int)y+1]; //
 
         return topRight;
     }
@@ -120,8 +121,8 @@ public class Cell {
     public Cell bottomNeighbour(){
         Cell bottom = this;
 
-        if(y + 2 < board.ySize)
-            bottom = board.cells[(int)x][(int)y+2];
+        if(y - 2 >= 0)
+            bottom = board.cells[(int)x][(int)y-2]; //
 
         return bottom;
     }
@@ -129,8 +130,9 @@ public class Cell {
     public Cell bottomLeftNeighbour(){
         Cell bottomLeft = this;
 
-        if(x - y%2 >= 0 && y + 1 < board.ySize)
-            bottomLeft = board.cells[(int)x-(int)y%2][(int)y+1];
+        if(x - y%2 >= 0 && y - 1 >= 0)
+            bottomLeft = board.cells[(int)x-(int)(y+1)%2][(int)y-1]; //
+
 
         return bottomLeft;
     }
@@ -138,8 +140,8 @@ public class Cell {
     public Cell bottomRightNeighbour(){
         Cell bottomRight = this;
 
-        if(x + 1 - y%2 < board.xSize && y + 1 <board.ySize)
-            bottomRight = board.cells[(int)x+1-(int)y%2][(int)y+1];
+        if(x + 1 - (y+1)%2 < board.xSize && y - 1 >= 0)
+            bottomRight = board.cells[(int)x+1-(int)(y+1)%2][(int)y-1]; //
 
         return bottomRight;
     }
