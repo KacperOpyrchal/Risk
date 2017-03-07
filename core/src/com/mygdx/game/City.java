@@ -198,7 +198,7 @@ public class City {
         return true;
     }
 
-    public void findBorders2() { // powinna działać ta funkcja, ale będzie trzeba to jeszcze sprawdzić
+    public void findBorders2() {
 
         for (int i = 0; i < cells.size(); i++) {
 
