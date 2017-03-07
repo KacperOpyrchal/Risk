@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.ApplicationAdapter;
+import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.graphics.Color;
@@ -22,6 +23,8 @@ import com.badlogic.gdx.maps.tiled.renderers.OrthogonalTiledMapRenderer;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Skin;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
+import com.badlogic.gdx.utils.viewport.ExtendViewport;
+import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Random;
 
@@ -39,7 +42,6 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 
 	@Override
 	public void create() {
-
 		PixMaps.generatePixMaps();
 
 		xSize = 10;
@@ -54,12 +56,14 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 		Gdx.input.setInputProcessor(this);
 	}
 	@Override
-	public void resize(int width, int height) {}
+	public void resize(int width, int height) {
+	}
 	@Override
 	public void render() {
 		Gdx.gl.glClearColor( 204.0f/255.0f, 204.0f/255.0f, 1, 1);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 
 		if(menu.isShowBoard()) {
 			board.drawBoard();
