@@ -77,8 +77,6 @@ public class Cell {
         if(neighbour == this) // warunek który jest opisany w ! topNeighbour() !
             return false;
 
-        //if(!board.inMap[(int)neighbour.x][(int)neighbour.y])
-            //return false;
 
         if(neighbour.x < 0 || neighbour.x >= width)
             return false;
