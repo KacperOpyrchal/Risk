@@ -62,6 +62,8 @@ public class City {
         float x1, y1;
         float x2, y2;
 
+        int lineSize = 3;
+
         for (Cell cell : cells) {
 
             //Cell neighbour = cell.topNeighbour();
@@ -74,7 +76,7 @@ public class City {
                 x2 = cell.realX + cell.size / 2;
                 y2 = cell.realY + (cell.size * (float) Math.sqrt(3)) / 2;
 
-                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+                shapeRenderer.rectLine(x1, y1, x2, y2, lineSize);
             }
 
             if (cell.borders[1]) {
@@ -84,7 +86,7 @@ public class City {
                 x2 = cell.realX + cell.size;
                 y2 = cell.realY;
 
-                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+                shapeRenderer.rectLine(x1, y1, x2, y2, lineSize);
             }
 
 
@@ -95,7 +97,7 @@ public class City {
                 x2 = cell.realX + cell.size;
                 y2 = cell.realY;//
 
-                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+                shapeRenderer.rectLine(x1, y1, x2, y2, lineSize);
             }
 
             if (cell.borders[3]) {
@@ -105,7 +107,7 @@ public class City {
                 x2 = cell.realX + cell.size / 2;
                 y2 = cell.realY - (cell.size * (float) Math.sqrt(3)) / 2;
 
-                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+                shapeRenderer.rectLine(x1, y1, x2, y2, lineSize);
             }
 
             if (cell.borders[4]) {
@@ -115,7 +117,7 @@ public class City {
                 x2 = cell.realX - cell.size;
                 y2 = cell.realY;
 
-                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+                shapeRenderer.rectLine(x1, y1, x2, y2, lineSize);
             }
 
             if (cell.borders[5]) {
@@ -125,7 +127,7 @@ public class City {
                 x2 = cell.realX - cell.size;
                 y2 = cell.realY;
 
-                shapeRenderer.rectLine(x1, y1, x2, y2, 4);
+                shapeRenderer.rectLine(x1, y1, x2, y2, lineSize);
             }
 
 

@@ -128,7 +128,7 @@ public class Cell {
     public Cell bottomLeftNeighbour(){
         Cell bottomLeft = this;
 
-        if(x - y%2 >= 0 && y - 1 >= 0)
+        if(x - (y+1)%2 >= 0 && y - 1 >= 0)
             bottomLeft = board.cells[(int)x-(int)(y+1)%2][(int)y-1]; //
 
 
