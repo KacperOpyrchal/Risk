@@ -63,10 +63,10 @@ public class Menu {
 
         texture = new Texture("abstractbackgrounds/20.png");
 
-        clickSound = Gdx.audio.newSound(Gdx.files.internal("Audio/used/click1.ogg"));
-        renderSound = Gdx.audio.newSound(Gdx.files.internal("Audio/used/load.wav"));
-        startSound = Gdx.audio.newSound(Gdx.files.internal("Audio/used/select.wav"));
-        backSound = Gdx.audio.newSound(Gdx.files.internal("Audio/used/back.wav"));
+        clickSound = Gdx.audio.newSound(Gdx.files.internal("menu/audio/click1.ogg"));
+        renderSound = Gdx.audio.newSound(Gdx.files.internal("menu/audio/load.wav"));
+        startSound = Gdx.audio.newSound(Gdx.files.internal("menu/audio/select.wav"));
+        backSound = Gdx.audio.newSound(Gdx.files.internal("menu/audio/back.wav"));
 
         isShowBoard = false;
         isStartActive = true;
@@ -95,9 +95,9 @@ public class Menu {
         settingsBtn = new Button(new Texture("menu/button_options.png"), xPosition, yPosition - ySize*2, xSize, ySize, clickSound);
         exitBtn = new Button(new Texture("menu/button_exit.png"), xPosition, yPosition - ySize*3, xSize, ySize, clickSound);
 
-        backBtn = new Button(new Texture("custom/back.png"), xPosition, (5*Gdx.graphics.getHeight())/6 , Gdx.graphics.getHeight()/6, Gdx.graphics.getHeight()/6, backSound);
+        backBtn = new Button(new Texture("menu/back.png"), xPosition, (5*Gdx.graphics.getHeight())/6 , Gdx.graphics.getHeight()/6, Gdx.graphics.getHeight()/6, backSound);
 
-        renderBtn = new Button(new Texture("custom/restart.png"), xPosition + Gdx.graphics.getHeight()/6, (5*Gdx.graphics.getHeight())/6, Gdx.graphics.getHeight()/6, Gdx.graphics.getHeight()/6, renderSound);
+        renderBtn = new Button(new Texture("menu/restart.png"), xPosition + Gdx.graphics.getHeight()/6, (5*Gdx.graphics.getHeight())/6, Gdx.graphics.getHeight()/6, Gdx.graphics.getHeight()/6, renderSound);
     }
 
     public void renderMenu(SpriteBatch batch){
