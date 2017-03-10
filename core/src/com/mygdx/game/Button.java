@@ -35,7 +35,7 @@ public class Button {
     public boolean checkIfClicked (float ix, float iy) {
         if (ix > skin.getX() && ix < skin.getX() + skin.getWidth()) {
             if (iy > skin.getY() && iy < skin.getY() + skin.getHeight()) {
-                sound.play();
+                //sound.play();
                 return true;
             }
         }

@@ -39,7 +39,7 @@ public class PixMaps {
         pixMapFive.setColor(Color.ORANGE);
         pixMapFive.fill();
 
-        pixMapSix.setColor(Color.ORANGE);
+        pixMapSix.setColor(Color.PURPLE);
         pixMapSix.fill();
 
     }
