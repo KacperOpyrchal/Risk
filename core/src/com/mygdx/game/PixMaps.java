@@ -15,6 +15,7 @@ public class PixMaps {
     public static Pixmap pixMapFour;
     public static Pixmap pixMapFive;
     public static Pixmap pixMapSix;
+    public static Pixmap pixMapSeven;
 
     public static void generatePixMaps() {
         pixMapOne = new Pixmap(1,1, Pixmap.Format.RGBA8888);
@@ -23,6 +24,7 @@ public class PixMaps {
         pixMapFour = new Pixmap(1,1, Pixmap.Format.RGBA8888);
         pixMapFive = new Pixmap(1,1, Pixmap.Format.RGBA8888);
         pixMapSix = new Pixmap(1,1, Pixmap.Format.RGBA8888);
+        pixMapSeven = new Pixmap(1,1, Pixmap.Format.RGBA8888);
 
         pixMapOne.setColor(Color.BLUE);
         pixMapOne.fill();
@@ -41,6 +43,9 @@ public class PixMaps {
 
         pixMapSix.setColor(Color.PURPLE);
         pixMapSix.fill();
+
+        pixMapSeven.setColor(Color.DARK_GRAY);
+        pixMapSeven.fill();
 
     }
 }

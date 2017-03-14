@@ -35,6 +35,11 @@ public class Cell {
     float realX;
     float realY;
     float size;
+
+    int color;
+
+    boolean isChecked;
+
     Texture textureHexagon;
     PolygonRegion polygonRegion;
 
@@ -49,10 +54,11 @@ public class Cell {
         this.x = x;
         this.y = y;
         this.size = size;
+        this.isChecked = false;
         setRealX();
         setRealY();
         setTextureHexagon(pixmap);
-        setShape(size);
+        setShape();
 
         this.board = board;
 
@@ -187,7 +193,7 @@ public class Cell {
         textureHexagon = new Texture(pixMap);
     }
 
-    private void setShape(float size){
+    public void setShape(){
         float sqrt3 = (float)Math.sqrt(3)/2;
         float[] vertices = new float[]{
             -size, 0,
@@ -208,5 +214,39 @@ public class Cell {
         polygonRegion = new PolygonRegion(new TextureRegion(textureHexagon), vertices, triangles);
     }
 
+    public int getColorId() {
+        return color;
+    }
 
+    public void setColorId(int color) {
+        this.color = color;
+    }
+
+    public void setColor() {
+        Pixmap pixmap = PixMaps.pixMapOne;
+
+        switch (color){
+            case 1:
+                pixmap = PixMaps.pixMapOne;
+                break;
+            case 2:
+                pixmap = PixMaps.pixMapTwo;
+                break;
+            case 3:
+                pixmap = PixMaps.pixMapThree;
+                break;
+            case 4:
+                pixmap = PixMaps.pixMapFour;
+                break;
+            case 5:
+                pixmap = PixMaps.pixMapFive;
+                break;
+            case 6:
+                pixmap = PixMaps.pixMapSix;
+                break;
+        }
+
+        setTextureHexagon(pixmap);
+        setShape();
+    }
 }

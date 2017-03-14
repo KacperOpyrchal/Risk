@@ -30,8 +30,6 @@ public class Board {
 
     ShapeOfCity shape;
 
-
-
     public Cell[][] cells;
     public boolean[][] citiesBoolean;
     public List<City> cities;
@@ -56,25 +54,37 @@ public class Board {
 
 
         Pixmap pixmap = PixMaps.pixMapFive;
+        int color = 5;
 
         City newCity = new City(5, "aaaa", this, pixmap);
         cities.add(newCity);
+        for(Cell cell : newCity.getCells()){
+            cell.setColorId(color);
+        }
+
 
         for(int i = 0; i < 15; i++){
             switch (i%3){
                 case 0:
                     pixmap = PixMaps.pixMapTwo;
+                    color = 2;
                     break;
                 case 1:
+                    color = 3;
                     pixmap = PixMaps.pixMapThree;
                     break;
                 case 2:
+                    color = 4;
                     pixmap = PixMaps.pixMapFour;
                     break;
             }
 
             newCity = new City(5, "aaaa", this, pixmap);
             cities.add(newCity);
+
+            for(Cell cell : newCity.getCells()){
+                cell.setColorId(color);
+            }
 
         }
         pixmap = PixMaps.pixMapOne;
@@ -122,6 +132,51 @@ public class Board {
         }
 
         shapeRenderer.end();
+    }
+
+    public void uncheckAllCells(){
+
+        for(int i = 0; i < ySize; ++i){
+            for(int j = 0; j < xSize; ++j){
+
+                if(cells[j][i].isChecked) {
+                    cells[j][i].setColor();
+                    cells[j][i].isChecked = false;
+                }
+            }
+        }
+
+    }
+
+    public void searchForCell(float x, float y){
+
+        for(int i = 0; i < ySize; ++i){
+            for(int j = 0; j < xSize; ++j){
+                if( Math.sqrt(Math.pow((double)(cells[j][i].realX - x) , 2) + Math.pow((double)(cells[j][i].realY - y) , 2)) <= cells[j][i].size) {
+                    for(City city : cities){
+
+                        boolean is = false;
+
+                        for(Cell cell : city.getCells()){
+                            if(cell.realX == cells[j][i].realX && cell.realY == cells[j][i].realY){
+                                is = true;
+                            }
+                        }
+
+                        if(is){
+                            for(Cell cell : city.getCells()){
+                                cell.isChecked = true;
+                                cell.setTextureHexagon(PixMaps.pixMapSeven);
+                                cell.setShape();
+                            }
+                            Gdx.app.log("KAP", "CIEKAWA KAPUSTA");
+                            return;
+                        }
+                    }
+                }
+            }
+        }
+
     }
 
     public int getX(){

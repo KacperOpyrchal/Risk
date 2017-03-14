@@ -33,7 +33,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	ShapeRenderer shapeRenderer;
 	SpriteBatch batch;
 
-	Board board;
+	public static Board board;
 
 	Menu menu;
 
@@ -105,7 +105,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	@Override
 	public boolean touchDown(int screenX, int screenY, int pointer, int button) {
 
-		Gdx.app.log("KAP", "I:O x = " + screenX + " y = " + screenY);
+		//Gdx.app.log("KAP", "I:O x = " + screenX + " y = " + screenY);
 
 		menu.checkOnClick(screenX, Gdx.graphics.getHeight() - screenY);
 

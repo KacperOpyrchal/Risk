@@ -24,6 +24,7 @@ import com.badlogic.gdx.utils.viewport.Viewport;
 
 import java.util.Random;
 
+import static com.badlogic.gdx.utils.Align.bottom;
 import static com.badlogic.gdx.utils.Align.center;
 
 /**
@@ -31,7 +32,7 @@ import static com.badlogic.gdx.utils.Align.center;
  */
 
 public class Menu {
-    private Texture texture;
+    //private Texture texture;
 
     private Sound clickSound;
     private Sound startSound;
@@ -61,7 +62,7 @@ public class Menu {
 
         //Random random = new Random();
 
-        texture = new Texture("abstractbackgrounds/20.png");
+        //texture = new Texture("abstractbackgrounds/20.png");
 
         clickSound = Gdx.audio.newSound(Gdx.files.internal("menu/audio/click1.ogg"));
         renderSound = Gdx.audio.newSound(Gdx.files.internal("menu/audio/load.wav"));
@@ -118,6 +119,11 @@ public class Menu {
 
 
     public void checkOnClick(int x, int y){
+
+        Gdx.app.log("KAP", "I:O x = " + x + " y = " + y);
+
+        MyGdxGame.board.uncheckAllCells();
+        MyGdxGame.board.searchForCell(x, y);
 
         if(startBtn.checkIfClicked(x, y)){
             if(!isShowBoard){
