@@ -46,7 +46,7 @@ public class ShapeOfCity {
 
         Vector2 Center = new Vector2(x,y);
 
-        int n = random.nextInt(4) + 6;
+        int n = random.nextInt(6) + 8;
 
         createCity(Center, n, radius, pixmap);
     }

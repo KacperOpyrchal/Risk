@@ -4,7 +4,9 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.PolygonSpriteBatch;
+import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g3d.particles.influencers.ColorInfluencer;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector;
@@ -35,6 +37,9 @@ public class Board {
     public List<City> cities;
     public boolean[][] inMap;
 
+    Batch batch;
+    BitmapFont font;
+
     public Board(int xSize, int ySize) {
         this.xSize = xSize;
         this.ySize = ySize;
@@ -44,6 +49,11 @@ public class Board {
         float k = (float)(3*xSize + 0.5);
         a = Gdx.graphics.getWidth() / k;
         cities = new ArrayList<City>();
+
+        font = new BitmapFont();
+        font.getData().setScale(2f);
+        batch = new SpriteBatch();
+
         createShapeOfBoard();
         createMap();
         createBoard();
@@ -115,13 +125,13 @@ public class Board {
 
         PolygonSpriteBatch polygonSpriteBatch = new PolygonSpriteBatch(6);
 
+        polygonSpriteBatch.begin();
         for(int i = 0; i < ySize; ++i){
             for(int j = 0; j < xSize; ++j){
-                    polygonSpriteBatch.begin();
                     polygonSpriteBatch.draw(cells[j][i].polygonRegion, cells[j][i].realX, cells[j][i].realY);
-                    polygonSpriteBatch.end();
             }
         }
+        polygonSpriteBatch.end();
 
         ShapeRenderer shapeRenderer = new ShapeRenderer();
         shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
@@ -130,6 +140,15 @@ public class Board {
         for(City city : cities){
             city.drawBorder(shapeRenderer);
         }
+
+        batch.begin();
+
+        for(City city : cities){
+            city.drawArmy(a*3, batch, font);
+        }
+
+        batch.end();
+
 
         shapeRenderer.end();
     }

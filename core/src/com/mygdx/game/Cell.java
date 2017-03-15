@@ -249,4 +249,11 @@ public class Cell {
         setTextureHexagon(pixmap);
         setShape();
     }
+
+    public boolean checkBorders(){
+        for(boolean b : borders){
+            if(b) return false;
+        }
+        return true;
+    }
 }

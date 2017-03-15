@@ -44,7 +44,7 @@ MyGdxGame extends ApplicationAdapter implements InputProcessor{
 	public void create() {
 		PixMaps.generatePixMaps();
 
-		xSize = 20;
+		xSize = 10;
 		ySize = (int)(xSize * 6/Math.sqrt(3.0));
 		board = new Board(xSize, ySize);
 

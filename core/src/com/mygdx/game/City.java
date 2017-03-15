@@ -4,10 +4,12 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Pixmap;
 import com.badlogic.gdx.graphics.g2d.Batch;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by Kacper Opyrchal on 08.02.2017.
@@ -34,13 +36,13 @@ public class City {
     public City(int army, String membership, Board board, Pixmap pixmap) {
         this.army = army;
         this.membership = membership;
-
         this.cells = new ArrayList<Cell>();
-
         this.board = board;
 
         shape = new ShapeOfCity(board, this.cells, pixmap, 4);
 
+        Random rand = new Random();
+        army = rand.nextInt(8)+1;
     }
 
     @Deprecated
@@ -232,6 +234,32 @@ public class City {
 
             }
 
+        }
+
+    }
+
+    public void drawArmy(float dt, Batch batch, BitmapFont font){
+
+        ///*
+
+        Cell cell;
+
+        if(getCells().size() != 0){
+            cell = getCells().get((getCells().size()-1)/2);
+
+            for(Cell c : getCells()){
+                if(c.checkBorders()){
+                    cell = c;
+                    //Gdx.app.log("===", "======================================");
+                    break;
+                }
+            }
+
+            float fontX = cell.realX;
+            float fontY = cell.realY;
+            //*/
+
+            font.draw(batch, army+"", fontX - 5, fontY + 5);
         }
 
     }
